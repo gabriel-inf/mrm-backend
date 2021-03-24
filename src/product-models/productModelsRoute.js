@@ -1,5 +1,5 @@
 const { getIdParam } = require('../utils/helpers');
-const productModelDb = require('../utils/mockDAO');
+const productModelDb = require('../utils/mockDAO')("productModels");
 
 async function getAll(req, res) {
 	const elements = productModelDb.findAll();

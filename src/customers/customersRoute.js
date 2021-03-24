@@ -1,5 +1,5 @@
 const { getIdParam } = require('../utils/helpers');
-const customerDb = require('../utils/mockDAO');
+const customerDb = require('../utils/mockDAO')("customers");
 const validations = require("./validations");
 
 async function getAll(req, res) {
