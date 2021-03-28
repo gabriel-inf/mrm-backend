@@ -2,9 +2,6 @@ actionsRules = {
     CREATE: {
         MUST_HAVE_FIELDS: ["companyName", "commercialName", "cpf", "cnpj", "address", "number", "city", "phoneNumber", "mobilePhoneNumber", "email", "active"],
         FIELDS_WITH_PRE_DEFINED_VALUES: {
-            active: {
-                "values": ["Y", "N"]
-            }
         }
     }
 }
