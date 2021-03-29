@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const swaggerUi = require('swagger-ui-express');
 const swaggerJsdoc = require('swagger-jsdoc');
+var cors = require('cors');
 
 const options = {
   swaggerDefinition: {
@@ -31,6 +32,7 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors);
 
 function makeHandlerAwareOfAsyncErrors(handler) {
     return async function (req, res, next) {
