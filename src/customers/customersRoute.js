@@ -39,7 +39,8 @@ async function create(req, res) {
 		res.status(422).send(errorMessage);
 	}
 	else {
-		await customerDb.create(req.body);
+		const created = await customerDb.create(req.body);
+		res.send(created);
 		res.status(201).end();
 	}
 };

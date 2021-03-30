@@ -20,6 +20,7 @@ const create = (resource) => {
         element.id = incrementalKeys[resource]++;
     
         dbs[resource].push(element);
+        return element;
     }
 }
 
