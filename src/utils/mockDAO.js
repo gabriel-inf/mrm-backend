@@ -1,14 +1,5 @@
-const uuidv4 = require('uuid').v4;
-
-let db = [
-    {
-        id: "1",
-        name: "test"
-    }
-]
-
 let dbs = {};
-
+let incrementalKeys = {};
 
 const findAll = (resource) => {
     return () => {
@@ -23,9 +14,10 @@ const findByPk = (resource) => {
 }
 
 const create = (resource) => {
+    if (incrementalKeys[resource] === undefined) incrementalKeys[resource] = 1;
     return (element) => {
         console.log("Element: ", element);
-        element.id = uuidv4();
+        element.id = incrementalKeys[resource]++;
     
         dbs[resource].push(element);
     }
