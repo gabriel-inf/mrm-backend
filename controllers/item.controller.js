@@ -8,6 +8,7 @@ const { isInvalidId, isIdNotPresent } = require("./utils/genericBodyValidator");
 const { addXTotalCount } = require("./utils/headerHelper");
 const model = db.StockItem;
 const ItemService = require("../service/item.service");
+const { MAINTENANCE, INVENTORY } = require("../utils/itemConstants");
 
 
 // create new item
@@ -128,7 +129,7 @@ exports.sendToMaintenance = async (req, res) => {
   if (await isInvalidId(req, res, model)) return;
 
   try {
-    const histEntry = await ItemService.updateStockItemStatus(req.params.id, "MAINTENANCE", req.body.comment);
+    const histEntry = await ItemService.updateStockItemStatus(req.params.id, MAINTENANCE, req.body.comment);
     res.status(StatusCodes.OK);
     res.send(histEntry);
 
@@ -147,10 +148,66 @@ exports.releaseFromMaintenance = async (req, res) => {
   if (await isInvalidId(req, res, model)) return;
 
   try {
-    const histEntry = await ItemService.updateStockItemStatus(req.params.id, "INVENTORY", req.body.comment);
+    const histEntry = await ItemService.updateStockItemStatus(req.params.id, INVENTORY, req.body.comment);
     res.status(StatusCodes.OK);
     res.send(histEntry);
 
+  } catch (err) {
+    handleApiError(res, err);
+  }
+
+}
+
+/**
+ * Method responsible for registering a leave for an item (inventory -> rental)
+ * @param {*} req 
+ * @param {*} res 
+ */
+exports.registerLeave = async (req, res) => {
+  if (await isInvalidId(req, res, model)) return;
+
+  try {
+    const histEntry = await ItemService.registerLeave(req.params.id);
+    res.status(StatusCodes.OK);
+    res.send(histEntry);
+  } catch (err) {
+    handleApiError(res, err);
+  }
+
+}
+
+/**
+ * Method responsible for registering an arrive for an item (rental -> inventory)
+ * @param {*} req 
+ * @param {*} res 
+ */
+exports.registerArrive = async (req, res) => {
+  if (await isInvalidId(req, res, model)) return;
+
+  try {
+    const histEntry = await ItemService.updateStockItemStatus(req.params.id, INVENTORY, req.body.comment);
+    res.status(StatusCodes.OK);
+    res.send(histEntry);
+  } catch (err) {
+    handleApiError(res, err);
+  }
+
+}
+
+/**
+ * Method responsible for setting the isReadyForLeave flag to true
+ * It may be called when the manager enters in the system a ready rental
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ */
+exports.setReadyForRental = async (req, res) => {
+  if (await isInvalidId(req, res, model)) return;
+
+  try {
+    const updatedItem = await ItemService.setReadyForRental(req.params.id, true);
+    res.status(StatusCodes.OK);
+    res.send(updatedItem);
   } catch (err) {
     handleApiError(res, err);
   }
