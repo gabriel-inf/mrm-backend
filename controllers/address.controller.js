@@ -2,10 +2,13 @@ const { StatusCodes, getReasonPhrase } = require("http-status-codes");
 const db = require("../models");
 const handleApiError = require("./utils/apiErrorHandler");
 const { Op } = require("sequelize");
+const { isIdNotPresent, isInvalidId } = require("./utils/genericBodyValidator");
+const { addXTotalCount } = require("./utils/headerHelper");
+const model = db.Address;
 
 // post new address
 exports.create = (req, res) => {
-  db.Address.create({
+  model.create({
     street: req.body.street,
     cep: req.body.cep,
     city: req.body.city,
@@ -20,8 +23,9 @@ exports.create = (req, res) => {
 
 // get all addresses
 exports.findAll = (req, res) => {
-  db.Address.findAll()
+  model.findAll()
     .then(addresses => {
+      addXTotalCount(res, addresses.length);
       res.send(addresses);
     })
     .catch((err) => {
@@ -31,7 +35,7 @@ exports.findAll = (req, res) => {
 
 // get single address by id
 exports.findOne = (req, res) => {
-  db.Address.findAll({
+  model.findAll({
     where: {
       id: req.params.id
     }
@@ -56,7 +60,7 @@ exports.findOne = (req, res) => {
 
 // delete address
 exports.deleteOne = (req, res) => {
-  db.Address.destroy({
+  model.destroy({
     where: {
       id: req.params.id
     }
@@ -65,7 +69,7 @@ exports.deleteOne = (req, res) => {
 
 // delete all addresses
 exports.deleteAll = (req, res) => {
-  db.Address.destroy({
+  model.destroy({
     where: {
       // all records
     },
@@ -76,10 +80,10 @@ exports.deleteAll = (req, res) => {
 // edit a address
 exports.update = async (req, res) => {
 
-  if (await isInvalidId(req, res)) return;
   if (isIdNotPresent(req, res)) return;
+  if (await isInvalidId(req, res, model)) return;
 
-  db.Address.update(
+  model.update(
     {
       street: req.body.street,
       cep: req.body.cep,
@@ -91,34 +95,3 @@ exports.update = async (req, res) => {
     }
   ).then(() => res.send("success"));
 };
-
-// auxiliary functions (can be generalized)
-
-async function isInvalidId(req, res) {
-  const found = await db.Address.count({
-    where: {
-      id: {
-        [Op.eq]: req.params.id
-      }
-    }
-  });
-  if (found == 0) {
-    res.status(StatusCodes.NOT_FOUND);
-    res.send({
-      message: "The given id was not found"
-    });
-    return true;
-  }
-  return false;
-}
-
-function isIdNotPresent(req, res) {
-  if (!req.params.id) {
-    res.status(StatusCodes.BAD_REQUEST);
-    res.send({
-      message: "Parameter id is required for updates"
-    });
-    return true;
-  }
-  return false;
-}

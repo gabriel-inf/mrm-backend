@@ -3,11 +3,14 @@ const db = require("../models");
 const handleApiError = require("./utils/apiErrorHandler");
 const { Op } = require("sequelize");
 const logger = require("../utils/logger");
-
+const { hasInvalidQuery } = require("./utils/queryValidator");
+const { isInvalidId, isIdNotPresent } = require("./utils/genericBodyValidator");
+const { addXTotalCount } = require("./utils/headerHelper");
+const model = db.Customer;
 
 // create new customer
 exports.create = (req, res) => {
-  db.Customer.create({
+  model.create({
     companyName: req.body.companyName,
     cnpj: req.body.cnpj,
     cpf: req.body.cpf,
@@ -32,20 +35,9 @@ exports.create = (req, res) => {
 // get all customers
 exports.findAll = (req, res) => {
 
-  if (req.query) {
-    const queryAttributes = new Set(Object.keys(req.query));
-    const possibleAttributes = new Set(Object.keys(db.Customer.rawAttributes));
-    const notValidAttributes = new Set(
-      [...queryAttributes].filter(x => !possibleAttributes.has(x))
-    );
+  if (hasInvalidQuery(req, res, model)) return;
 
-    if (notValidAttributes.size > 0) {
-      handleApiError(res, `Not valid query parameters: ${Array.from(notValidAttributes).join(",")}`);
-      return;
-    }
-  }
-
-  db.Customer.findAll({
+  model.findAll({
     where: req.query,
     include: [
       {
@@ -54,6 +46,7 @@ exports.findAll = (req, res) => {
     ]
   })
     .then(customers => {
+      addXTotalCount(res, customers.length)
       res.send(customers);
     })
     .catch((err) => {
@@ -63,7 +56,7 @@ exports.findAll = (req, res) => {
 
 // get single customer by id
 exports.findOne = (req, res) => {
-  db.Customer.findAll({
+  model.findAll({
     where: {
       id: req.params.id
     },
@@ -91,7 +84,7 @@ exports.findOne = (req, res) => {
 };
 
 exports.findOneAddress = (req, res) => {
-  db.Customer.findOne({
+  model.findOne({
     include: [
       {
         model: db.Address
@@ -120,7 +113,7 @@ exports.findOneAddress = (req, res) => {
 
 // delete customer
 exports.deleteOne = (req, res) => {
-  db.Customer.destroy({
+  model.destroy({
     where: {
       id: req.params.id
     }
@@ -129,7 +122,7 @@ exports.deleteOne = (req, res) => {
 
 // delete all customers
 exports.deleteAll = (req, res) => {
-  db.Customer.destroy({
+  model.destroy({
     where: {
       // all records
     },
@@ -140,8 +133,8 @@ exports.deleteAll = (req, res) => {
 // edit a address
 exports.update = async (req, res) => {
 
-  if (await isInvalidId(req, res)) return;
   if (isIdNotPresent(req, res)) return;
+  if (await isInvalidId(req, res, model)) return;
 
   const filter = {
     include: [
@@ -169,56 +162,8 @@ exports.update = async (req, res) => {
     number: req.body.Address.number
   };
 
-  var customer = await db.Customer.findOne(filter);
+  var customer = await model.findOne(filter);
   customer.Address.update(newAddressAttributes);
   customer.update(newCustomerAttributes);
   res.send(customer);
 };
-
-
-exports.findByQuery = (req, res) => {
-
-  if (req.query) {
-    console.log(query);
-  }
-
-  const filter = {
-    include: [
-      {
-        model: db.Address
-      }
-    ],
-    where: { id: req.params.id }
-  };
-};
-
-// auxiliary functions (can be generalized)
-
-async function isInvalidId(req, res) {
-  const found = await db.Customer.count({
-    where: {
-      id: {
-        [Op.eq]: req.params.id
-      }
-    }
-  });
-  if (found == 0) {
-    res.status(StatusCodes.NOT_FOUND);
-    res.send({
-      message: "The given id was not found"
-    });
-    return true;
-  }
-  return false;
-}
-
-function isIdNotPresent(req, res) {
-  if (!req.params.id) {
-    res.status(StatusCodes.BAD_REQUEST);
-    res.send({
-      message: "Parameter id is required for updates"
-    });
-    return true;
-  }
-  return false;
-}
