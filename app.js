@@ -4,6 +4,7 @@ const db = require("./models");
 const PORT = process.env.PORT || 3134;
 const cors = require("cors");
 const morgan = require('morgan');
+const logger = require("./utils/logger");
 
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
@@ -14,7 +15,7 @@ app.use(morgan('dev'));
 const addressRoute = require("./routes/address.route");
 const customerRoute = require("./routes/customer.route");
 const itemRoute = require("./routes/item.route");
-const logger = require("./utils/logger");
+const productModelRoute = require("./routes/productModel.route copy");
 
 addRoutesToTheApp();
 
@@ -28,8 +29,11 @@ db.sequelize.sync().then(() => {
 
 function addRoutesToTheApp() {
   logger.info("Adding routes...");
+  
   app.use("/api/addresses", addressRoute);
   app.use("/api/customers", customerRoute);
   app.use("/api/stockItems", itemRoute);
+  app.use("/api/productModels", productModelRoute);
+
   logger.info("Routes successfully added");
 }
