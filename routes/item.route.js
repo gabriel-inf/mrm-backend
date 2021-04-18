@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const {create, findAll, findOne, deleteAll, deleteOne, update} = require("../controllers/item.controller");
+const {create, findAll, findOne, deleteAll, deleteOne, update, sendToMaintenance, releaseFromMaintenance} = require("../controllers/item.controller");
 
 // CRUD
 router.get("/", findAll);
@@ -13,7 +13,7 @@ router.put("/:id", update);
 //ACTIONS
 // router.post("/leave/:id", registerLeave);
 // router.post("/arrive/:id", registerArrive);
-// router.post("/maintenance/send/:id", sendToMaintenance);
-// router.post("/maintenance/release/:id", releaseFromMaintenance);
+router.put("/maintenance/send/:id", sendToMaintenance);
+router.put("/maintenance/release/:id", releaseFromMaintenance);
 
 module.exports = router;

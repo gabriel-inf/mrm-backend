@@ -3,26 +3,23 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class StockItem extends Model {
+  class ItemStatusHistory extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      this.belongsTo(models.ProductModel);
-      this.hasMany(models.ItemStatusHistory);
+      this.belongsTo(models.StockItem);
     }
   };
-  StockItem.init({
+  ItemStatusHistory.init({
     status: DataTypes.STRING,
-    isReadyToBeRented: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false
-    }
+    comment: DataTypes.TEXT
   }, {
     sequelize,
-    modelName: 'StockItem',
-  }); 
-  return StockItem;
+    modelName: 'ItemStatusHistory',
+    updatedAt: false
+  });
+  return ItemStatusHistory;
 };

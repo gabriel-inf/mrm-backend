@@ -7,6 +7,7 @@ const { hasInvalidQuery } = require("./utils/queryValidator");
 const { isInvalidId, isIdNotPresent } = require("./utils/genericBodyValidator");
 const { addXTotalCount } = require("./utils/headerHelper");
 const model = db.StockItem;
+const ItemService = require("../service/item.service");
 
 
 // create new item
@@ -114,8 +115,44 @@ exports.update = async (req, res) => {
     ProductModelId: req.body.model || item.ProductModelId
   }
 
-  logger.warn(JSON.stringify(newAttributes));
-
   const updatedItem = await item.update(newAttributes);
   res.send(updatedItem);
 };
+
+/**
+ * Method responsible for sending an item to the maintenance status and add a record to the history table
+ * @param {*} req 
+ * @param {*} res 
+ */
+exports.sendToMaintenance = async (req, res) => {
+  if (await isInvalidId(req, res, model)) return;
+
+  try {
+    const histEntry = await ItemService.updateStockItemStatus(req.params.id, "MAINTENANCE", req.body.comment);
+    res.status(StatusCodes.OK);
+    res.send(histEntry);
+
+  } catch (err) {
+    handleApiError(res, err);
+  }
+}
+
+
+/**
+ * Method responsible for releasing an item from the maintenance
+ * @param {*} req 
+ * @param {*} res 
+ */
+exports.releaseFromMaintenance = async (req, res) => {
+  if (await isInvalidId(req, res, model)) return;
+
+  try {
+    const histEntry = await ItemService.updateStockItemStatus(req.params.id, "INVENTORY", req.body.comment);
+    res.status(StatusCodes.OK);
+    res.send(histEntry);
+
+  } catch (err) {
+    handleApiError(res, err);
+  }
+
+}
