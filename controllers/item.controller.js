@@ -77,12 +77,14 @@ exports.findOne = (req, res) => {
 };
 
 // delete item
-exports.deleteOne = (req, res) => {
+exports.deleteOne = async (req, res) => {
+  if (await isInvalidId(req, res, model)) return;
   model.destroy({
     where: {
       id: req.params.id
     }
-  }).then(() => res.send("success"));
+  })
+  .then(() => res.send("success"));
 };
 
 // delete all
