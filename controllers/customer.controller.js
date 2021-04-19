@@ -112,12 +112,13 @@ exports.findOneAddress = (req, res) => {
 };
 
 // delete customer
-exports.deleteOne = (req, res) => {
+exports.deleteOne = async (req, res) => {
+  if (await isInvalidId(req, res, model)) return;
   model.destroy({
     where: {
       id: req.params.id
     }
-  }).then(() => res.send("success"));
+  }).then(() => res.send());
 };
 
 // delete all customers
