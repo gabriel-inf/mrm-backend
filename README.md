@@ -2,9 +2,11 @@
 
 ## Setup
 
+- run the database: `docker-compose up -d`
 - Download all the dependencies by running `npm install`.
 - If you don't need auto reload, use `npm start`.
 
+> make sure you have docker compose installed (https://docs.docker.com/compose/install/)
 
 ## Todo
 
