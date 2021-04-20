@@ -6,10 +6,10 @@ const { MAINTENANCE, INVENTORY, RENTED, VALID_STATUSES } = require("../utils/ite
 
 
 class ItemService {
-    
-    
+
+
     static async updateStockItemStatus(id, newStatus, comment) {
-        
+
         if (!isValidNewStatus(newStatus)) throw "Invalid Status";
 
         try {
@@ -17,10 +17,10 @@ class ItemService {
             if (!isStatusChanging(newStatus, stockItemModel)) throw `Item is already in ${newStatus}`;
             await stockItemModel.update(getNewStatusObj(newStatus));
             const histEntry = await itemStatusHistoryModel.create(getNewItemStatusHistoryEntry(newStatus, comment, id));
-    
+
             return histEntry;
         }
-        catch(err){
+        catch (err) {
             logger.error("updateStockItemStatus - " + err);
             throw err;
         }
@@ -47,7 +47,7 @@ class ItemService {
                 isReadyToBeRented: isReadyForRental
             });
             return updatedItem;
-        } catch(err) {
+        } catch (err) {
             logger.error("setReadyForRental - " + err);
             throw err;
         }
@@ -58,7 +58,7 @@ class ItemService {
 async function getStockItemModel(id) {
     return await model.findOne({
         where: {
-          id: id
+            id: id
         }
     });
 }
@@ -68,7 +68,7 @@ function isItemReadyForLeave(item) {
         && item.isReadyToBeRented;
 }
 
-function isValidNewStatus(newStatus) { 
+function isValidNewStatus(newStatus) {
     return VALID_STATUSES.includes(newStatus);
 }
 

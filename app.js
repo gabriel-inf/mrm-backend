@@ -15,7 +15,7 @@ app.use(morgan('dev'));
 const addressRoute = require("./routes/address.route");
 const customerRoute = require("./routes/customer.route");
 const itemRoute = require("./routes/item.route");
-const productModelRoute = require("./routes/productModel.route copy");
+const productModelRoute = require("./routes/productModel.route");
 
 addRoutesToTheApp();
 

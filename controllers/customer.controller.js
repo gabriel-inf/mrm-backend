@@ -128,7 +128,7 @@ exports.deleteAll = (req, res) => {
       // all records
     },
     truncate: true
-  }).then(() => res.send("success"));
+  }).then(() => res.send());
 };
 
 // edit a address
