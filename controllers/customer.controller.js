@@ -69,7 +69,7 @@ exports.findOne = (req, res) => {
     ]
   }).then(customer => {
     if (customer.length > 0) {
-      res.send(customer);
+      res.send(customer[0]);
     } else {
       res.status(StatusCodes.NOT_FOUND);
       res.send(

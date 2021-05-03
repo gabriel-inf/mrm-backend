@@ -58,7 +58,7 @@ exports.findOne = (req, res) => {
     ]
   }).then(item => {
     if (item.length > 0) {
-      res.send(item);
+      res.send(item[0]);
     } else {
       res.status(StatusCodes.NOT_FOUND);
       res.send(

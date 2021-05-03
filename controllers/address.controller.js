@@ -41,7 +41,7 @@ exports.findOne = (req, res) => {
     }
   }).then(address => {
     if (address.length > 0) {
-      res.send(address);
+      res.send(address[0]);
     } else {
       res.status(StatusCodes.NOT_FOUND);
       res.send(
