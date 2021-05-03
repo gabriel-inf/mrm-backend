@@ -20,7 +20,7 @@ module.exports = {
         dialect: "postgres", 
         port: 5432, 
         logging: true,
-        ssl: true
+        rejectUnauthorized: false
     },     
     production: 
     { 
