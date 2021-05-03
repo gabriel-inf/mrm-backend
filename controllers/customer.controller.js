@@ -18,13 +18,13 @@ exports.create = (req, res) => {
     mobilePhoneNumber: req.body.mobilePhoneNumber,
     email: req.body.email,
     active: req.body.active,
-    Address: {
+    address: {
       street: req.body.street,
       cep: req.body.cep,
       city: req.body.city,
       number: req.body.number
     }
-  }, { include: [db.Address] }).then(createdCustomer => {
+  }, { include: [db.address] }).then(createdCustomer => {
     res.status(StatusCodes.CREATED);
     res.send(createdCustomer);
   }).catch((err) => {
@@ -39,9 +39,11 @@ exports.findAll = (req, res) => {
 
   model.findAll({
     where: req.query,
+    nested: true,
+    
     include: [
       {
-        model: db.Address
+        model: db.address
       }
     ]
   })
@@ -62,7 +64,7 @@ exports.findOne = (req, res) => {
     },
     include: [
       {
-        model: db.Address
+        model: db.address
       }
     ]
   }).then(customer => {
@@ -87,7 +89,7 @@ exports.findOneAddress = (req, res) => {
   model.findOne({
     include: [
       {
-        model: db.Address
+        model: db.address
       }
     ],
     where: {
@@ -95,7 +97,7 @@ exports.findOneAddress = (req, res) => {
     }
   }).then(customer => {
     if (!!customer) {
-      res.send(customer.Address);
+      res.send(customer.address);
     } else {
       res.status(StatusCodes.NOT_FOUND);
       res.send(
@@ -140,7 +142,7 @@ exports.update = async (req, res) => {
   const filter = {
     include: [
       {
-        model: db.Address
+        model: db.address
       }
     ],
     where: { id: req.params.id }
@@ -157,14 +159,14 @@ exports.update = async (req, res) => {
   }
 
   const newAddressAttributes = {
-    street: req.body.Address.street,
-    cep: req.body.Address.cep,
-    city: req.body.Address.city,
-    number: req.body.Address.number
+    street: req.body.address.street,
+    cep: req.body.address.cep,
+    city: req.body.address.city,
+    number: req.body.address.number
   };
 
   var customer = await model.findOne(filter);
-  customer.Address.update(newAddressAttributes);
+  customer.address.update(newAddressAttributes);
   customer.update(newCustomerAttributes);
   res.send(customer);
 };

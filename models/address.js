@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       // this.belongsTo(models.Customer, {
       //   foreignKey: {
       //     allowNull: true
-      //   }
+      //   }raw: true,
       // });
     }
   };
@@ -36,7 +36,7 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {
     sequelize,
-    modelName: 'Address',
+    modelName: 'address',
   });
   return Address;
 };

@@ -4,7 +4,7 @@ const handleApiError = require("./utils/apiErrorHandler");
 const { Op } = require("sequelize");
 const { isIdNotPresent, isInvalidId } = require("./utils/genericBodyValidator");
 const { addXTotalCount } = require("./utils/headerHelper");
-const model = db.Address;
+const model = db.address;
 
 // post new address
 exports.create = (req, res) => {

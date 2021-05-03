@@ -5,7 +5,7 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class Supplier extends Model {
     static associate(models) {
-      this.hasOne(models.Address, {
+      this.hasOne(models.address, {
         onDelete: "cascade",
         foreignKey: {
           allowNull: true
