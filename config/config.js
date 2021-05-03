@@ -19,7 +19,8 @@ module.exports = {
         host: process.env.DATABASE_HOST || "localhost", 
         dialect: "postgres", 
         port: 5432, 
-        logging: true 
+        logging: true,
+        ssl: true
     },     
     production: 
     { 
