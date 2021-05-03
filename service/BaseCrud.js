@@ -31,7 +31,7 @@ module.exports = class BaseCrud {
         const entities = await model.findAll({
             include: models,
             where: whereClauses
-        })
+        }, includes)
 
         return entities;
     }
