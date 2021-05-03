@@ -6,7 +6,7 @@ const logger = require("../utils/logger");
 const { hasInvalidQuery } = require("./utils/queryValidator");
 const { isInvalidId, isIdNotPresent } = require("./utils/genericBodyValidator");
 const { addXTotalCount } = require("./utils/headerHelper");
-const model = db.StockItem;
+const model = db.stockItem;
 const ItemService = require("../service/item.service");
 const { MAINTENANCE, INVENTORY } = require("../utils/itemConstants");
 const BaseCrud = require("../service/BaseCrud");
@@ -15,7 +15,7 @@ const BaseCrud = require("../service/BaseCrud");
 exports.create = async (req, res) => {
 
   try {
-    const createdItem = await BaseCrud.create(model, req.body, [db.ProductModel]);
+    const createdItem = await BaseCrud.create(model, req.body, [db.productModel]);
     res.status(StatusCodes.CREATED);
     res.send(createdItem);
   } catch (err) {
@@ -27,7 +27,7 @@ exports.create = async (req, res) => {
 exports.findAll = async (req, res) => {
   if (hasInvalidQuery(req, res, model)) return;
   try {
-    const elements = await BaseCrud.findAll(model, req.query, [db.ProductModel]);
+    const elements = await BaseCrud.findAll(model, req.query, [db.productModel]);
     res.headers = addXTotalCount(res, elements.length);
     res.send(elements);
   } catch(err){
@@ -38,7 +38,7 @@ exports.findAll = async (req, res) => {
 exports.findOne = async (req, res) => {
   try {
     if (await isInvalidId(req, res, model)) return;
-    const item = await BaseCrud.findOne(model, req.params.id, [db.ProductModel]);
+    const item = await BaseCrud.findOne(model, req.params.id, [db.productModel]);
     res.send(item);
   } catch (err) {
     handleApiError(res, err);

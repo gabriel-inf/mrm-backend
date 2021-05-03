@@ -1,7 +1,7 @@
 const db = require("../models");
 const logger = require("../utils/logger");
-const model = db.StockItem;
-const itemStatusHistoryModel = db.ItemStatusHistory;
+const model = db.stockItem;
+const itemStatusHistoryModel = db.itemStatusHistory;
 const { MAINTENANCE, INVENTORY, RENTED, VALID_STATUSES } = require("../utils/itemConstants");
 
 

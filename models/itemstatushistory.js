@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      this.belongsTo(models.StockItem);
+      this.belongsTo(models.stockItem);
     }
   };
   ItemStatusHistory.init({
@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     comment: DataTypes.TEXT
   }, {
     sequelize,
-    modelName: 'ItemStatusHistory',
+    modelName: 'itemStatusHistory',
     updatedAt: false
   });
   return ItemStatusHistory;

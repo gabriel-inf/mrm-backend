@@ -6,7 +6,7 @@ const logger = require("../utils/logger");
 const { hasInvalidQuery } = require("./utils/queryValidator");
 const { isInvalidId, isIdNotPresent } = require("./utils/genericBodyValidator");
 const { addXTotalCount } = require("./utils/headerHelper");
-const model = db.Customer;
+const model = db.customer;
 
 // create new customer
 exports.create = (req, res) => {

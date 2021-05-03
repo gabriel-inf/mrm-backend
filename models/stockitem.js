@@ -10,8 +10,8 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      this.belongsTo(models.ProductModel);
-      this.hasMany(models.ItemStatusHistory);
+      this.belongsTo(models.productModel);
+      this.hasMany(models.itemStatusHistory);
     }
   };
   StockItem.init({
@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     sequelize,
-    modelName: 'StockItem',
+    modelName: 'stockItem',
   }); 
   return StockItem;
 };

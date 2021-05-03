@@ -5,7 +5,7 @@ const logger = require("../utils/logger");
 const { hasInvalidQuery } = require("./utils/queryValidator");
 const { isInvalidId, isIdNotPresent } = require("./utils/genericBodyValidator");
 const { addXTotalCount } = require("./utils/headerHelper");
-const model = db.ProductModel;
+const model = db.productModel;
 
 
 // create new product model

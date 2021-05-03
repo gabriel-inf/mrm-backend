@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      this.hasMany(models.StockItem, {
+      this.hasMany(models.stockItem, {
         onDelete: "cascade",
         foreignKey: {
           allowNull: true
@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
     image: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'ProductModel',
+    modelName: 'productModel',
   });
   return ProductModel;
 };

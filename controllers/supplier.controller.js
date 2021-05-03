@@ -6,16 +6,16 @@ const logger = require("../utils/logger");
 const { hasInvalidQuery } = require("./utils/queryValidator");
 const { isInvalidId, isIdNotPresent } = require("./utils/genericBodyValidator");
 const { addXTotalCount } = require("./utils/headerHelper");
-const model = db.StockItem;
+const model = db.stockItem;
 const ItemService = require("../service/item.service");
 
 
 exports.create = (req, res) => {
   logger.info(`model id ${req.body.model}`)
-  db.StockItem.create({
+  db.stockItem.create({
     status: req.body.status,
     ProductModelId: req.body.model
-  }, { include: [db.ProductModel] }).then(createdItem => {
+  }, { include: [db.productModel] }).then(createdItem => {
     res.status(StatusCodes.CREATED);
     res.send(createdItem);
   }).catch((err) => {
@@ -31,7 +31,7 @@ exports.findAll = (req, res) => {
     where: req.query,
     include: [
       {
-        model: db.ProductModel
+        model: db.productModel
       }
     ]
   })
@@ -53,7 +53,7 @@ exports.findOne = (req, res) => {
     },
     include: [
       {
-        model: db.ProductModel
+        model: db.productModel
       }
     ]
   }).then(item => {
