@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const {create, findAll, findOne, deleteAll, deleteOne, update} = require("../controllers/productModel.controller");
+const createType = require("../controllers/productType.controller").create;
+const findAllTypes = require("../controllers/productType.controller").findAll;
 
 // CRUD
 router.get("/", findAll);
@@ -10,10 +12,10 @@ router.delete("/:id", deleteOne);
 router.delete("/", deleteAll);
 router.put("/:id", update);
 
-//ACTIONS
-// router.post("/leave/:id", registerLeave);
-// router.post("/arrive/:id", registerArrive);
-// router.post("/maintenance/send/:id", sendToMaintenance);
-// router.post("/maintenance/release/:id", releaseFromMaintenance);
+// the types that are used
+router.get('/types', findAllTypes);
+router.post('/types', createType);
+
+
 
 module.exports = router;

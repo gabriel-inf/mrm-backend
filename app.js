@@ -16,6 +16,7 @@ const addressRoute = require("./routes/address.route");
 const customerRoute = require("./routes/customer.route");
 const itemRoute = require("./routes/item.route");
 const productModelRoute = require("./routes/productModel.route");
+const itemCustomAttributesRoute = require("./routes/itemCustomAttributes.route");
 
 addRoutesToTheApp();
 
@@ -34,6 +35,7 @@ function addRoutesToTheApp() {
   app.use("/api/customers", customerRoute);
   app.use("/api/stockItems", itemRoute);
   app.use("/api/productModels", productModelRoute);
+  app.use("/api/itemCustomAttributes/", itemCustomAttributesRoute);
 
   logger.info("Routes successfully added");
 }
