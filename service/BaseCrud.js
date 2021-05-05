@@ -9,7 +9,8 @@ module.exports = class BaseCrud {
     static async create(model, attributes, includes) {
 
         delete attributes["id"];
-        const models = includes.map(dbModel => {
+
+        const models = includes?.map(dbModel => {
             return {model: dbModel}
         });
 
@@ -24,7 +25,7 @@ module.exports = class BaseCrud {
 
     static async findAll(model, whereClauses, includes) {
         
-        const models = includes.map(dbModel => {
+        const models = includes?.map(dbModel => {
             return {model: dbModel}
         });
 
