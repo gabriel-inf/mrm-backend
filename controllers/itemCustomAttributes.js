@@ -3,8 +3,8 @@ const handleApiError = require("./utils/apiErrorHandler");
 
 const typeDb = db.productType;
 const powerDb = db.productType;
-const brandDb = db.productType;
-const modelDb = db.productType;
+const brandDb = db.productBrand;
+const modelDb = db.productModelName;
 
 const BaseCrud = require("../service/BaseCrud");
 
