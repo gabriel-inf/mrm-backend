@@ -14,6 +14,7 @@ exports.create = (req, res) => {
     mobilePhone: req.body.mobilePhone,
     email: req.body.email,
     active: req.body.active,
+    comment: req.body.comment,
     address: {
       street: req.body.street,
       cep: req.body.cep,
@@ -93,12 +94,13 @@ exports.update = async (req, res) => {
   var supplier = await db.supplier.findOne(filter);
 
   const newAttributes = {
-    name: req.body.name || supplier.name,
-    commercialName: req.body.commercialName || supplier.commercialName,
-    cnpj: req.body.cnpj || supplier.cnpj,
-    mobilePhone: req.body.mobilePhone || supplier.mobilePhone,
-    email: req.body.email || supplier.email,
-    active: req.body.active || supplier.active
+    name: req.body.name,
+    commercialName: req.body.commercialName,
+    cnpj: req.body.cnpj,
+    mobilePhone: req.body.mobilePhone,
+    email: req.body.email,
+    active: req.body.active,
+    comment: req.body.comment,
   }
 
   supplier.update(newAttributes)
