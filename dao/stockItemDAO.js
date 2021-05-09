@@ -1,6 +1,4 @@
-const { QueryTypes } = require('sequelize');
-const { sequelize } = require('../models');
-
+const { executeSelect } = require("./baseDAO");
 
 /**
  * Returns all the stock items that are associated with a given customer in a ongoing contract
@@ -23,17 +21,23 @@ exports.allItemsWithGivenClient = async (clientId) => {
             ir."leftAt" is not NULL AND
             ir."returnedAt" is NULL;
     `
+    return await executeSelect(query, [clientId]);
+}
 
-    try {
-        return await sequelize.query(
-            query,
-            {
-                replacements: [clientId],
-                type: QueryTypes.SELECT
-            }
-        );
-    } catch (err) {
-        console.log(err);
-        throw err;
-    }
+/**
+ * Get all the stock items that have needsMaintenance set to true
+ * @returns 
+ */
+exports.getAllItemsThatNeedMaintenance = () => {
+
+    const query = `
+        SELECT
+            si.* 
+        FROM
+            "stockItems" si
+        WHERE
+            si."needsMaintenance" = true
+    `;
+
+    return await executeSelect(query, []);
 }
