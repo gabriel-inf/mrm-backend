@@ -23,6 +23,7 @@ exports.create = (req, res) => {
     code: req.body.code,
     comment: req.body.comment,
     supplierId: req.body.supplierId,
+    active: req.body.active,
     stockItemEvents: [{
       status: req.body.status,
       comment: req.body.statusComment
@@ -116,7 +117,8 @@ exports.update = async (req, res) => {
     replacementCost: req.body.replacementCost || stockItem.replacementCost,
     code: req.body.code || stockItem.code,
     comment: req.body.comment || stockItem.comment,
-    supplierId: req.body.supplierId || stockItem.supplierId
+    supplierId: req.body.supplierId || stockItem.supplierId,
+    active: req.body.active || stockItem.active
   }
 
   const oldStatus = stockItem.status;

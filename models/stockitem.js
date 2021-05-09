@@ -29,6 +29,7 @@ module.exports = (sequelize, DataTypes) => {
     imageURL: DataTypes.STRING,
     rentValue: DataTypes.DECIMAL,
     replacementCost: DataTypes.DECIMAL,
+    active: DataTypes.BOOLEAN,
     code: {
       type: DataTypes.STRING,
       unique: true
