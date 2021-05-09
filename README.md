@@ -74,3 +74,29 @@ When creating a supplier instance, you can pass the address with it, but it is n
   "comment": "Contract with customer 1 has discount for loyalty"
 }
 ```
+
+### StockItem
+
+Anytime the 'status' field is changed, a stockItemEvent is created to record it. You can see the stockItemEvents of a stockItem by using the `get /api/stockitems/:id` endpoint
+
+```json
+{
+  "name": "Stock Item 1 Name",
+  "type": "Stock Item 1 Type",
+  "power": "Stock Item 1 Power",
+  "brand": "Stock Item 1 Brand",
+  "model": "Stock Item 1 Model",
+  "status": "INVENTORY",
+  "numberOfUses": 15,
+  "lastMaintenance": "2021-04-01",
+  "acquisitionDate": "2020-07-01",
+  "needsMaintenance": false,
+  "imageURL": "imageURL",
+  "rentValue": 500,
+  "replacementCost": 10000,
+  "code": "334134254",
+  "comment": "Comment about Stock Item 1",
+  "statusComment": "Just purchased. Sending straight to inventory",
+  "supplierId": 2
+}
+```
