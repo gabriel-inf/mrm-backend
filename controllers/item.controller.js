@@ -1,14 +1,9 @@
 const { StatusCodes, getReasonPhrase } = require("http-status-codes");
 const db = require("../models");
 const handleApiError = require("./utils/apiErrorHandler");
-const { Op } = require("sequelize");
-const logger = require("../utils/logger");
 const { hasInvalidQuery } = require("./utils/queryValidator");
 const { isInvalidId, isIdNotPresent } = require("./utils/genericBodyValidator");
 const { addXTotalCount } = require("./utils/headerHelper");
-const ItemService = require("../service/item.service");
-const { MAINTENANCE, INVENTORY } = require("../utils/itemConstants");
-const BaseCrud = require("../service/BaseCrud");
 
 exports.create = (req, res) => {
   db.stockItem.create({
