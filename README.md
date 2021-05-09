@@ -55,3 +55,22 @@ When creating a supplier instance, you can pass the address with it, but it is n
   "comment": "Comments related to Supplier 1"
 }
 ```
+
+### RentContract
+
+```json
+{
+  "startDate": "2021-04-10",
+  "endDate": "2021-05-10",
+  "approvalDate": "2021-04-05",
+  "paymentDueDate": "2021-05-20",
+  "paidAt": null,
+  "receiptUrl": "urlforthereceit.com",
+  "contractUrl": "urlforthecontract.com",
+  "durationMode": "30DAYS",
+  "value": 800,
+  "status": "APPROVED",
+  "customerId": 1,
+  "comment": "Contract with customer 1 has discount for loyalty"
+}
+```
