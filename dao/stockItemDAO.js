@@ -28,7 +28,7 @@ exports.allItemsWithGivenClient = async (clientId) => {
  * Get all the stock items that have needsMaintenance set to true
  * @returns 
  */
-exports.getAllItemsThatNeedMaintenance = () => {
+exports.getAllItemsThatNeedMaintenance = async () => {
 
     const query = `
         SELECT
