@@ -3,20 +3,18 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class RentContract extends Model {
+  class Additive extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      this.belongsTo(models.customer);
-      this.hasMany(models.itemRental);
-      this.hasMany(models.additive);
+      this.belongsTo(models.rentContract);
     }
   };
 
-  RentContract.init({
+  Additive.init({
     startDate: DataTypes.DATE,
     endDate: DataTypes.DATE,
     approvalDate: DataTypes.DATE,
@@ -24,13 +22,12 @@ module.exports = (sequelize, DataTypes) => {
     paidAt: DataTypes.DATE,
     receiptUrl: DataTypes.STRING,
     contractUrl: DataTypes.STRING,
-    durationMode: DataTypes.STRING,
     value: DataTypes.DECIMAL,
     status: DataTypes.STRING,
     comment: DataTypes.TEXT
   }, {
     sequelize,
-    modelName: 'rentContract',
+    modelName: 'additive',
   });
-  return RentContract;
+  return Additive;
 };
