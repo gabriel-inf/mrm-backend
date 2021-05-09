@@ -41,3 +41,22 @@ exports.getAllItemsThatNeedMaintenance = async () => {
 
     return await executeSelect(query, []);
 }
+
+
+/**
+ * Get all the stock items that are currently under maintenance
+ * @returns 
+ */
+ exports.getAllItemsThatAreCurrentlyUnderMaintanance = async () => {
+
+    const query = `
+        SELECT
+            si.*
+        FROM 
+            "stockItems" si
+        WHERE
+            si.status = 'MAINTENANCE'
+    `;
+
+    return await executeSelect(query, []);
+}
