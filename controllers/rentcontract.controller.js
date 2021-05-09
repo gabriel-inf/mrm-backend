@@ -7,6 +7,22 @@ const { addXTotalCount } = require("./utils/headerHelper");
 
 
 exports.create = (req, res) => {
+  var itemRentals = [];
+  if(req.body.itemRentals) {
+    var itemRentalsLength = req.body.itemRentals.length;
+  } else {
+    var itemRentalsLength = 0;
+  }
+  for(var i = 0; i < itemRentalsLength; i++) {
+    var newItemRental = {
+      leftAt: req.body.itemRentals[i].leftAt,
+      returnedAt: req.body.itemRentals[i].returnedAt,
+      value: req.body.itemRentals[i].value,
+      comment: req.body.itemRentals[i].comment,
+      stockItemId: req.body.itemRentals[i].stockItemId
+    };
+    itemRentals.push(newItemRental);
+  };
   db.rentContract.create({
     startDate: req.body.startDate,
     endDate: req.body.endDate,
@@ -19,7 +35,10 @@ exports.create = (req, res) => {
     value: req.body.value,
     status: req.body.status,
     customerId: req.body.customerId,
-    comment: req.body.comment
+    comment: req.body.comment,
+    itemRentals: itemRentals
+  }, {
+    include: [db.itemRental]
   }).then(createdItem => {
     res.status(StatusCodes.CREATED);
     res.send(createdItem);
@@ -45,7 +64,13 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
   db.rentContract.findAll({
     where: {id: req.params.id},
-    include: [db.customer]
+    include: [
+      db.customer,
+      {
+        model: db.itemRental,
+        include: [db.stockItem]
+      }
+    ]
   }).then(item => {
     if (item.length > 0) {
       res.send(item[0]);
@@ -66,18 +91,24 @@ exports.findOne = (req, res) => {
 
 exports.deleteOne = async (req, res) => {
   if (await isInvalidId(req, res, db.rentContract)) return;
-  db.rentContract.destroy({
-    where: {id: req.params.id}
+  db.itemRental.destroy({
+    where: {rentContractId: req.params.id}
+  }).then(() => {
+    db.rentContract.destroy({
+      where: {id: req.params.id}
+    })
+    .then(() => {
+      res.status(StatusCodes.OK);
+      res.send()
+    });
   })
-  .then(() => {
-    res.status(StatusCodes.OK);
-    res.send()
-  });
 };
 
 exports.deleteAll = (req, res) => {
   db.rentContract.destroy({
     where: {},
+    cascade: true,
+    truncate: true
   }).then(() => {
     res.status(StatusCodes.OK);
     res.send()
