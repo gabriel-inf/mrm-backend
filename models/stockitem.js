@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       this.belongsTo(models.supplier);
       this.hasMany(models.stockItemEvent);
+      this.hasMany(models.itemRental)
     }
   };
   StockItem.init({
