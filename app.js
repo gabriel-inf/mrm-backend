@@ -15,7 +15,6 @@ app.use(morgan('dev'));
 const addressRoute = require("./routes/address.route");
 const customerRoute = require("./routes/customer.route");
 const itemRoute = require("./routes/item.route");
-const productModelRoute = require("./routes/productModel.route");
 const itemCustomAttributesRoute = require("./routes/itemCustomAttributes.route");
 const supplierRoute = require("./routes/supplier.route");
 
@@ -35,7 +34,6 @@ function addRoutesToTheApp() {
   app.use("/api/addresses", addressRoute);
   app.use("/api/customers", customerRoute);
   app.use("/api/stockItems", itemRoute);
-  app.use("/api/productModels", productModelRoute);
   app.use("/api/itemCustomAttributes/", itemCustomAttributesRoute);
   app.use("/api/suppliers", supplierRoute);
   logger.info("Routes successfully added");
