@@ -11,13 +11,13 @@ const model = db.customer;
 // create new customer
 exports.create = (req, res) => {
   model.create({
-    companyName: req.body.companyName,
+    name: req.body.name,
+    commercialName: req.body.commercialName,
     cnpj: req.body.cnpj,
-    cpf: req.body.cpf,
-    phoneNumber: req.body.phoneNumber,
-    mobilePhoneNumber: req.body.mobilePhoneNumber,
+    mobilePhone: req.body.mobilePhone,
     email: req.body.email,
     active: req.body.active,
+    comment: req.body.comment,
     address: {
       street: req.body.street,
       cep: req.body.cep,
@@ -129,7 +129,8 @@ exports.deleteAll = (req, res) => {
     where: {
       // all records
     },
-    truncate: true
+    truncate: true,
+    cascade: true
   }).then(() => res.send());
 };
 
@@ -148,25 +149,22 @@ exports.update = async (req, res) => {
     where: { id: req.params.id }
   };
 
-  const newCustomerAttributes = {
-    companyName: req.body.companyName,
+  var customer = await model.findOne(filter);
+
+  const newAttributes = {
+    name: req.body.name,
+    commercialName: req.body.commercialName,
     cnpj: req.body.cnpj,
-    cpf: req.body.cpf,
-    phoneNumber: req.body.phoneNumber,
-    mobilePhoneNumber: req.body.mobilePhoneNumber,
+    mobilePhone: req.body.mobilePhone,
     email: req.body.email,
     active: req.body.active
   }
 
-  const newAddressAttributes = {
-    street: req.body.address.street,
-    cep: req.body.address.cep,
-    city: req.body.address.city,
-    number: req.body.address.number
-  };
-
-  var customer = await model.findOne(filter);
-  customer.address.update(newAddressAttributes);
-  customer.update(newCustomerAttributes);
-  res.send(customer);
+  customer.update(newAttributes)
+  .then(updatedItem => {
+    res.status(StatusCodes.CREATED);
+    res.send(updatedItem);
+  }).catch((err) => {
+    handleApiError(res, err);
+  });
 };

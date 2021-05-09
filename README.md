@@ -17,6 +17,26 @@
 
 ## Models
 
+### Customer
+
+When creating a customer instance, you can pass the address with it, but it is not part of the same table. They are related by a customerId field in the address table
+
+```json
+{
+  "name": "Customer 1 Name",
+  "commercialName": "Customer 1 Commercial Name",
+  "cnpj": "XX.XXX.XXX/YYYY-ZZ",
+  "mobilePhone": "(XX) XXX-XXX-XXX",
+  "email": "supplier1@email.com",
+  "active": true,
+  "street": "Customer 1 Street Name",
+  "cep": "XXXXX-XXX",
+  "city": "Customer 1 City",
+  "number": "Customer 1 building number",
+  "comment": "Comments related to Customer 1"
+}
+```
+
 ### Supplier
 
 When creating a supplier instance, you can pass the address with it, but it is not part of the same table. They are related by a supplierId field in the address table
@@ -25,7 +45,6 @@ When creating a supplier instance, you can pass the address with it, but it is n
 {
   "name": "Supplier 1 Name",
   "commercialName": "Supplier 1 Commercial Name",
-  "cnpj": "XX.XXX.XXX/YYYY-ZZ",
   "mobilePhone": "(XX) XXX-XXX-XXX",
   "email": "supplier1@email.com",
   "active": true,
