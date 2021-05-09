@@ -6,171 +6,138 @@ const logger = require("../utils/logger");
 const { hasInvalidQuery } = require("./utils/queryValidator");
 const { isInvalidId, isIdNotPresent } = require("./utils/genericBodyValidator");
 const { addXTotalCount } = require("./utils/headerHelper");
-const model = db.stockItem;
 const ItemService = require("../service/item.service");
 const { MAINTENANCE, INVENTORY } = require("../utils/itemConstants");
 const BaseCrud = require("../service/BaseCrud");
 
-// create new item
-exports.create = async (req, res) => {
-
-  try {
-    const createdItem = await BaseCrud.create(model, req.body, [db.productModel]);
+exports.create = (req, res) => {
+  db.stockItem.create({
+    name: req.body.name,
+    type: req.body.type,
+    power: req.body.power,
+    brand: req.body.brand,
+    model: req.body.model,
+    status: req.body.status,
+    numberOfUses: req.body.numberOfUses,
+    lastMaintenance: req.body.lastMaintenance,
+    acquisitionDate: req.body.acquisitionDate,
+    needsMaintenance: req.body.needsMaintenance,
+    imageURL: req.body.imageURL,
+    rentValue: req.body.rentValue,
+    replacementCost: req.body.replacementCost,
+    code: req.body.code,
+    comment: req.body.comment,
+    supplierId: req.body.supplierId,
+    stockItemEvents: [{
+      status: req.body.status,
+      comment: req.body.statusComment
+    }]
+  },{
+    include: [db.stockItemEvent]
+  }).then(createdItem => {
     res.status(StatusCodes.CREATED);
     res.send(createdItem);
-  } catch (err) {
+  }).catch((err) => {
     handleApiError(res, err);
-  }
+  });
 };
 
-// get all items
 exports.findAll = async (req, res) => {
-  if (hasInvalidQuery(req, res, model)) return;
-  try {
-    const elements = await BaseCrud.findAll(model, req.query, [db.productModel]);
-    res.headers = addXTotalCount(res, elements.length);
-    res.send(elements);
-  } catch(err){
+  if (hasInvalidQuery(req, res, db.stockItem)) return;
+
+  db.stockItem.findAll()
+  .then(items => {
+    res.headers = addXTotalCount(res, items.length);
+    console.log(JSON.stringify(res.headers));
+    res.send(items);
+  })
+  .catch((err) => {
     handleApiError(res, err);
-  }
+  });
 };
 
 exports.findOne = async (req, res) => {
-  try {
-    if (await isInvalidId(req, res, model)) return;
-    const item = await BaseCrud.findOne(model, req.params.id, [db.productModel]);
-    res.send(item);
-  } catch (err) {
-    handleApiError(res, err);
-  }
+  db.stockItem.findAll({
+    where: {id: req.params.id},
+    include: [db.supplier, db.stockItemEvent]
+  }).then(item => {
+    if (item.length > 0) {
+      res.send(item[0]);
+    } else {
+      res.status(StatusCodes.NOT_FOUND);
+      res.send(
+        {
+          "message": getReasonPhrase(StatusCodes.NOT_FOUND),
+          "id": req.params.id
+        }
+      );
+    }
+  })
+    .catch(err => {
+      handleApiError(res, err);
+    });
 };
 
 exports.deleteOne = async (req, res) => {
-  if (await isInvalidId(req, res, model)) return;
-  await BaseCrud.deleteOne(model, req.params.id);
-  res.status(StatusCodes.OK);
-  res.send();
+  if (await isInvalidId(req, res, db.stockItem)) return;
+  db.stockItem.destroy({
+    where: {id: req.params.id}
+  })
+  .then(() => res.send());
 };
 
 // delete all
 exports.deleteAll = async (req, res) => {
-  await BaseCrud.deleteAll(model);
-  res.status(StatusCodes.OK);
-  res.send();
+  db.stockItem.destroy({
+    where: {},
+    truncate: true,
+    cascade: true
+  }).then(() => res.send());
 };
 
 // edit a item
 exports.update = async (req, res) => {
-
   if (isIdNotPresent(req, res)) return;
-  if (await isInvalidId(req, res, model)) return;
+  if (await isInvalidId(req, res, db.stockItem)) return;
  
   const filter = {
     where: { id: req.params.id }
   };
 
-  var item = await model.findOne(filter);
+  var stockItem = await db.stockItem.findOne(filter);
 
   const newAttributes = {
-    isReadyToBeRented: req.body.isReadyToBeRented || item.isReadyToBeRented,
-    status: req.body.status || item.status,
-    ProductModelId: req.body.model || item.ProductModelId
+    name: req.body.name || stockItem.name,
+    type: req.body.type || stockItem.type,
+    power: req.body.power || stockItem.power,
+    brand: req.body.brand || stockItem.brand,
+    model: req.body.model || stockItem.model,
+    status: req.body.status || stockItem.status,
+    numberOfUses: req.body.numberOfUses || stockItem.numberOfUses,
+    lastMaintenance: req.body.lastMaintenance || stockItem.lastMaintenance,
+    acquisitionDate: req.body.acquisitionDate || stockItem.acquisitionDate,
+    imageURL: req.body.imageURL || stockItem.imageURL,
+    rentValue: req.body.rentValue || stockItem.rentValue,
+    replacementCost: req.body.replacementCost || stockItem.replacementCost,
+    code: req.body.code || stockItem.code,
+    comment: req.body.comment || stockItem.comment,
+    supplierId: req.body.supplierId || stockItem.supplierId
   }
 
-  const updatedItem = await item.update(newAttributes);
-  res.send(updatedItem);
-};
+  const oldStatus = stockItem.status;
 
-/**
- * Method responsible for sending an item to the maintenance status and add a record to the history table
- * @param {*} req 
- * @param {*} res 
- */
-exports.sendToMaintenance = async (req, res) => {
-  if (await isInvalidId(req, res, model)) return;
-
-  try {
-    const histEntry = await ItemService.updateStockItemStatus(req.params.id, MAINTENANCE, req.body.comment);
-    res.status(StatusCodes.OK);
-    res.send(histEntry);
-
-  } catch (err) {
-    handleApiError(res, err);
-  }
-}
-
-
-/**
- * Method responsible for releasing an item from the maintenance
- * @param {*} req 
- * @param {*} res 
- */
-exports.releaseFromMaintenance = async (req, res) => {
-  if (await isInvalidId(req, res, model)) return;
-
-  try {
-    const histEntry = await ItemService.updateStockItemStatus(req.params.id, INVENTORY, req.body.comment);
-    res.status(StatusCodes.OK);
-    res.send(histEntry);
-
-  } catch (err) {
-    handleApiError(res, err);
-  }
-
-}
-
-/**
- * Method responsible for registering a leave for an item (inventory -> rental)
- * @param {*} req 
- * @param {*} res 
- */
-exports.registerLeave = async (req, res) => {
-  if (await isInvalidId(req, res, model)) return;
-
-  try {
-    const histEntry = await ItemService.registerLeave(req.params.id);
-    res.status(StatusCodes.OK);
-    res.send(histEntry);
-  } catch (err) {
-    handleApiError(res, err);
-  }
-
-}
-
-/**
- * Method responsible for registering an arrive for an item (rental -> inventory)
- * @param {*} req 
- * @param {*} res 
- */
-exports.registerArrive = async (req, res) => {
-  if (await isInvalidId(req, res, model)) return;
-
-  try {
-    const histEntry = await ItemService.updateStockItemStatus(req.params.id, INVENTORY, req.body.comment);
-    res.status(StatusCodes.OK);
-    res.send(histEntry);
-  } catch (err) {
-    handleApiError(res, err);
-  }
-
-}
-
-/**
- * Method responsible for setting the isReadyForLeave flag to true
- * It may be called when the manager enters in the system a ready rental
- * 
- * @param {*} req 
- * @param {*} res 
- */
-exports.setReadyForRental = async (req, res) => {
-  if (await isInvalidId(req, res, model)) return;
-
-  try {
-    const updatedItem = await ItemService.setReadyForRental(req.params.id, true);
-    res.status(StatusCodes.OK);
+  stockItem.update(newAttributes)
+  .then(updatedItem => {
+    if(oldStatus != updatedItem.status) {
+      db.stockItemEvent.create({
+        status: updatedItem.status,
+        comment: req.body.statusComment,
+        stockItemId: updatedItem.id
+      });
+    }
+    res.status(StatusCodes.CREATED);
     res.send(updatedItem);
-  } catch (err) {
+  }).catch((err) => {
     handleApiError(res, err);
-  }
-
-}
+  });
+};
