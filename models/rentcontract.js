@@ -11,7 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       this.belongsTo(models.customer);
-      this.hasMany(models.itemRental)
+      this.hasMany(models.itemRental);
+      this.hasMany(models.additive);
     }
   };
 
