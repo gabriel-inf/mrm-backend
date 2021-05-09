@@ -15,13 +15,17 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   Supplier.init({
-    companyName: DataTypes.STRING,
-    cnpj: DataTypes.STRING,
-    cpf: DataTypes.STRING,
-    phoneNumber: DataTypes.STRING,
-    mobilePhoneNumber: DataTypes.STRING,
+    name: DataTypes.STRING,
+    commercialName: DataTypes.STRING,
+    cnpj: {
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: true
+    },
+    mobilePhone: DataTypes.STRING,
     email: DataTypes.STRING,
-    active: DataTypes.BOOLEAN
+    active: DataTypes.BOOLEAN,
+    comment: DataTypes.TEXT
   }, {
     sequelize,
     modelName: 'supplier',

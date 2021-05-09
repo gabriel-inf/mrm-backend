@@ -17,6 +17,7 @@ const customerRoute = require("./routes/customer.route");
 const itemRoute = require("./routes/item.route");
 const productModelRoute = require("./routes/productModel.route");
 const itemCustomAttributesRoute = require("./routes/itemCustomAttributes.route");
+const supplierRoute = require("./routes/supplier.route");
 
 addRoutesToTheApp();
 
@@ -36,6 +37,6 @@ function addRoutesToTheApp() {
   app.use("/api/stockItems", itemRoute);
   app.use("/api/productModels", productModelRoute);
   app.use("/api/itemCustomAttributes/", itemCustomAttributesRoute);
-
+  app.use("/api/suppliers", supplierRoute);
   logger.info("Routes successfully added");
 }

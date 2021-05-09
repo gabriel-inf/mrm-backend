@@ -1,21 +1,27 @@
 const { StatusCodes, getReasonPhrase } = require("http-status-codes");
 const db = require("../models");
 const handleApiError = require("./utils/apiErrorHandler");
-const { Op } = require("sequelize");
-const logger = require("../utils/logger");
 const { hasInvalidQuery } = require("./utils/queryValidator");
 const { isInvalidId, isIdNotPresent } = require("./utils/genericBodyValidator");
 const { addXTotalCount } = require("./utils/headerHelper");
-const model = db.supplier;
-const ItemService = require("../service/item.service");
 
 
 exports.create = (req, res) => {
-  logger.info(`model id ${req.body.model}`)
-  db.stockItem.create({
-    status: req.body.status,
-    ProductModelId: req.body.model
-  }, { include: [db.productModel] }).then(createdItem => {
+  db.supplier.create({
+    name: req.body.name,
+    commercialName: req.body.commercialName,
+    cnpj: req.body.cnpj,
+    mobilePhone: req.body.mobilePhone,
+    email: req.body.email,
+    active: req.body.active,
+    comment: req.body.comment,
+    address: {
+      street: req.body.street,
+      cep: req.body.cep,
+      city: req.body.city,
+      number: req.body.number
+    }
+  }, { include: [db.address] }).then(createdItem => {
     res.status(StatusCodes.CREATED);
     res.send(createdItem);
   }).catch((err) => {
@@ -25,19 +31,11 @@ exports.create = (req, res) => {
 
 exports.findAll = (req, res) => {
 
-  if (hasInvalidQuery(req, res, model)) return;
+  if (hasInvalidQuery(req, res, db.supplier)) return;
 
-  model.findAll({
-    where: req.query,
-    include: [
-      {
-        model: db.productModel
-      }
-    ]
-  })
+  db.supplier.findAll({include: [db.address]})
   .then(items => {
     res.headers = addXTotalCount(res, items.length);
-
     console.log(JSON.stringify(res.headers));
     res.send(items);
   })
@@ -47,15 +45,9 @@ exports.findAll = (req, res) => {
 };
 
 exports.findOne = (req, res) => {
-  model.findAll({
-    where: {
-      id: req.params.id
-    },
-    include: [
-      {
-        model: db.productModel
-      }
-    ]
+  db.supplier.findAll({
+    where: {id: req.params.id},
+    include: [db.address]
   }).then(item => {
     if (item.length > 0) {
       res.send(item[0]);
@@ -75,40 +67,75 @@ exports.findOne = (req, res) => {
 };
 
 exports.deleteOne = async (req, res) => {
-  if (await isInvalidId(req, res, model)) return;
-  model.destroy({
-    where: {
-      id: req.params.id
-    }
+  if (await isInvalidId(req, res, db.supplier)) return;
+  db.supplier.destroy({
+    where: {id: req.params.id}
   })
   .then(() => res.send("success"));
 };
 
 exports.deleteAll = (req, res) => {
-  model.destroy({
-    where: {
-      // all records
-    },
-    truncate: true
+  db.supplier.destroy({
+    where: {},
+    truncate: true,
+    cascade: true
   }).then(() => res.send("success"));
 };
 
 exports.update = async (req, res) => {
 
   if (isIdNotPresent(req, res)) return;
-  if (await isInvalidId(req, res, model)) return;
+  if (await isInvalidId(req, res, db.supplier)) return;
  
   const filter = {
     where: { id: req.params.id }
   };
 
-  var item = await model.findOne(filter);
+  var supplier = await db.supplier.findOne(filter);
 
   const newAttributes = {
-    status: req.body.status || item.status,
-    ProductModelId: req.body.model || item.ProductModelId
+    name: req.body.name,
+    commercialName: req.body.commercialName,
+    cnpj: req.body.cnpj,
+    mobilePhone: req.body.mobilePhone,
+    email: req.body.email,
+    active: req.body.active,
+    comment: req.body.comment,
   }
 
-  const updatedItem = await item.update(newAttributes);
-  res.send(updatedItem);
+  supplier.update(newAttributes)
+  .then(updatedItem => {
+    res.status(StatusCodes.CREATED);
+    res.send(updatedItem);
+  }).catch((err) => {
+    handleApiError(res, err);
+  });
+};
+
+exports.findOneAddress = (req, res) => {
+  db.supplier.findOne({
+    include: [
+      {
+        model: db.address
+      }
+    ],
+    where: {
+      id: req.params.id
+    }
+  }).then(supplier => {
+    if (!!supplier) {
+      res.send(supplier.address);
+    } else {
+      res.status(StatusCodes.NOT_FOUND);
+      res.send(
+        {
+          "message": getReasonPhrase(StatusCodes.NOT_FOUND),
+          "id": req.params.id
+        }
+      );
+    }
+  })
+    .catch(err => {
+      handleApiError(res, err);
+    });
 };
