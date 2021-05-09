@@ -25,6 +25,7 @@ When creating a supplier instance, you can pass the address with it, but it is n
 {
   "name": "Supplier 1 Name",
   "commercialName": "Supplier 1 Commercial Name",
+  "cnpj": "XX.XXX.XXX/YYYY-ZZ",
   "mobilePhone": "(XX) XXX-XXX-XXX",
   "email": "supplier1@email.com",
   "active": true,
