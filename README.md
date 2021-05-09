@@ -68,9 +68,38 @@ When creating a supplier instance, you can pass the address with it, but it is n
   "receiptUrl": "urlforthereceit.com",
   "contractUrl": "urlforthecontract.com",
   "durationMode": "30DAYS",
-  "value": 800,
+  "value": 1300,
   "status": "APPROVED",
   "customerId": 1,
-  "comment": "Contract with customer 1 has discount for loyalty"
+  "comment": "Contract 1",
+  "itemRentals": [
+    {
+      "leftAt": null,
+      "ReturnedAt": null,
+      "value": 100,
+      "stockItemId": 1,
+      "comment": "itemRental 1"
+    },
+    {
+      "leftAt": null,
+      "ReturnedAt": null,
+      "value": 200,
+      "stockItemId": 2,
+      "comment": "itemRental 2"
+    }
+  ]
+}
+```
+
+### ItemRental
+
+```json
+{
+  "leftAt": null,
+  "ReturnedAt": null,
+  "value": 900,
+  "stockItemId": 9,
+  "rentContractId": 3,
+  "comment": "itemRental 9 - Contract 3"
 }
 ```
