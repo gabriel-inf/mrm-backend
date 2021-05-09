@@ -1,12 +1,13 @@
-
+# README
 
 ## Setup
 
 - run the database: `docker-compose up -d`
 - Download all the dependencies by running `npm install`.
 - If you don't need auto reload, use `npm start`.
+- If you want to quickly reset the DB to pick up the changes to the tables: `curl "localhost:3134/db/reset"`
 
-> make sure you have docker compose installed (https://docs.docker.com/compose/install/)
+> make sure you have docker compose installed. [How to install docker-compose](https://docs.docker.com/compose/install/)
 
 ## Todo
 
@@ -88,6 +89,26 @@ When creating a supplier instance, you can pass the address with it, but it is n
       "comment": "itemRental 2"
     }
   ]
+}
+```
+
+### Additive
+
+This will also update the endDate of the rentContract associated with this additive
+
+```json
+{
+  "startDate": "2021-05-10",
+  "endDate": "2021-06-10",
+  "approvalDate": "2021-05-05",
+  "paymentDueDate": "2021-06-20",
+  "paidAt": null,
+  "receiptUrl": "urlforthereceit.com",
+  "contractUrl": "urlforthecontract.com",
+  "value": 1200,
+  "status": "APPROVED",
+  "comment": "Additive 1",
+  "rentContractId": 2
 }
 ```
 
