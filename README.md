@@ -145,6 +145,7 @@ Anytime the 'status' field is changed, a stockItemEvent is created to record it.
   "rentValue": 500,
   "replacementCost": 10000,
   "code": "334134254",
+  "active": true,
   "comment": "Comment about Stock Item 1",
   "statusComment": "Just purchased. Sending straight to inventory",
   "supplierId": 2
