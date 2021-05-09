@@ -10,16 +10,29 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      this.belongsTo(models.productModel);
-      this.hasMany(models.itemStatusHistory);
+      this.belongsTo(models.supplier);
+      this.hasMany(models.stockItemEvent);
     }
   };
   StockItem.init({
+    name: DataTypes.STRING,
+    type: DataTypes.STRING,
+    power: DataTypes.STRING,
+    brand: DataTypes.STRING,
+    model: DataTypes.STRING,
     status: DataTypes.STRING,
-    isReadyToBeRented: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false
-    }
+    needsMaintenance: DataTypes.BOOLEAN,
+    numberOfUses: DataTypes.INTEGER,
+    lastMaintenance: DataTypes.DATE,
+    acquisitionDate: DataTypes.DATE,
+    imageURL: DataTypes.STRING,
+    rentValue: DataTypes.DECIMAL,
+    replacementCost: DataTypes.DECIMAL,
+    code: {
+      type: DataTypes.STRING,
+      unique: true
+    },
+    comment: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'stockItem',
