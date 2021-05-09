@@ -79,3 +79,21 @@ exports.getClientsAndTotalDaysInDebt = async () => {
     `
     return await executeSelect(query, []);
 }
+
+exports.clientsWithActiveContracts = async () => {
+    const query = `
+        select
+            rc.id,
+            rc."customerId",
+            rc."startDate"
+        from
+            "rentContracts" rc
+        where
+            rc."endDate" > CURRENT_TIMESTAMP
+            and rc."startDate" < CURRENT_TIMESTAMP
+        order by
+            rc."startDate" desc
+    `;
+
+    return await executeSelect(query, []);
+}
