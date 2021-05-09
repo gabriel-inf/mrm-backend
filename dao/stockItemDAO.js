@@ -4,7 +4,7 @@ const { sequelize } = require('../models');
 
 /**
  * Returns all the stock items that are associated with a given customer in a ongoing contract
- * @param {*} clientId 
+ * @param {string} clientId 
  * @returns 
  */
 exports.allItemsWithGivenClient = async (clientId) => {
