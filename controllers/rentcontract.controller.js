@@ -66,6 +66,7 @@ exports.findOne = (req, res) => {
     where: {id: req.params.id},
     include: [
       db.customer,
+      db.additive,
       {
         model: db.itemRental,
         include: [db.stockItem]
