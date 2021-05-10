@@ -1,0 +1,20 @@
+{
+  "name": "Stock Item 5 Name",
+  "type": "Stock Item 5 Type",
+  "power": "Stock Item 5 Power",
+  "brand": "Stock Item 5 Brand",
+  "model": "Stock Item 5 Model",
+  "status": "INVENTORY",
+  "numberOfUses": 55,
+  "lastMaintenance": "2025-05-05",
+  "acquisitionDate": "2020-07-05",
+  "needsMaintenance": false,
+  "imageURL": "imageURL",
+  "rentValue": 500,
+  "replacementCost": 5000,
+  "code": "335535255",
+  "active": true,
+  "comment": "Comment about Stock Item 5",
+  "statusComment": "Just purchased. Sending straight to inventory",
+  "supplierId": 1
+}

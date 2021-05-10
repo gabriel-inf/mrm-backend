@@ -1,0 +1,20 @@
+{
+  "name": "Stock Item 4 Name",
+  "type": "Stock Item 4 Type",
+  "power": "Stock Item 4 Power",
+  "brand": "Stock Item 4 Brand",
+  "model": "Stock Item 4 Model",
+  "status": "INVENTORY",
+  "numberOfUses": 45,
+  "lastMaintenance": "2024-04-04",
+  "acquisitionDate": "2020-07-04",
+  "needsMaintenance": false,
+  "imageURL": "imageURL",
+  "rentValue": 400,
+  "replacementCost": 4000,
+  "code": "334434254",
+  "active": true,
+  "comment": "Comment about Stock Item 4",
+  "statusComment": "Just purchased. Sending straight to inventory",
+  "supplierId": 4
+}

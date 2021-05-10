@@ -1,0 +1,23 @@
+{
+  "startDate": "2021-04-10",
+  "endDate": "2021-05-10",
+  "approvalDate": "2021-04-05",
+  "paymentDueDate": "2021-05-20",
+  "paidAt": null,
+  "receiptUrl": "urlforthereceit.com",
+  "contractUrl": "urlforthecontract.com",
+  "durationMode": "30DAYS",
+  "value": 1500,
+  "status": "APPROVED",
+  "customerId": 3,
+  "comment": "Contract 3",
+  "itemRentals": [
+    {
+      "leftAt": null,
+      "ReturnedAt": null,
+      "value": 600,
+      "stockItemId": 6,
+      "comment": "itemRental 6"
+    }
+  ]
+}

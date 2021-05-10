@@ -1,0 +1,20 @@
+{
+  "name": "Stock Item 1 Name",
+  "type": "Stock Item 1 Type",
+  "power": "Stock Item 1 Power",
+  "brand": "Stock Item 1 Brand",
+  "model": "Stock Item 1 Model",
+  "status": "INVENTORY",
+  "numberOfUses": 15,
+  "lastMaintenance": "2021-04-01",
+  "acquisitionDate": "2020-07-01",
+  "needsMaintenance": false,
+  "imageURL": "imageURL",
+  "rentValue": 100,
+  "replacementCost": 1000,
+  "code": "334134254",
+  "active": true,
+  "comment": "Comment about Stock Item 1",
+  "statusComment": "Just purchased. Sending straight to inventory",
+  "supplierId": 1
+}
