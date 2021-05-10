@@ -1,0 +1,20 @@
+{
+  "name": "Stock Item 9 Name",
+  "type": "Stock Item 9 Type",
+  "power": "Stock Item 9 Power",
+  "brand": "Stock Item 9 Brand",
+  "model": "Stock Item 9 Model",
+  "status": "INVENTORY",
+  "numberOfUses": 95,
+  "lastMaintenance": "2029-09-09",
+  "acquisitionDate": "2020-07-09",
+  "needsMaintenance": false,
+  "imageURL": "imageURL",
+  "rentValue": 900,
+  "replacementCost": 9000,
+  "code": "339939259",
+  "active": true,
+  "comment": "Comment about Stock Item 9",
+  "statusComment": "Just purchased. Sending straight to inventory",
+  "supplierId": 1
+}
