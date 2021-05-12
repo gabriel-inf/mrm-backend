@@ -16,10 +16,11 @@ exports.create = (req, res) => {
     active: req.body.active,
     comment: req.body.comment,
     address: {
-      street: req.body.street,
-      cep: req.body.cep,
-      city: req.body.city,
-      number: req.body.number
+      street: req.body.address.street,
+      cep: req.body.address.cep,
+      city: req.body.address.city,
+      number: req.body.address.number,
+      neighborhood: req.body.address.neighborhood
     }
   }, { include: [db.address] }).then(createdItem => {
     res.status(StatusCodes.CREATED);

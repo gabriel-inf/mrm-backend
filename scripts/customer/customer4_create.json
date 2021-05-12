@@ -5,9 +5,12 @@
   "mobilePhone": "(XX) XXX-XXX-XXX",
   "email": "supplier1@email.com",
   "active": true,
-  "street": "Customer 3 Street Name",
-  "cep": "XXXXX-XXX",
-  "city": "Customer 3 City",
-  "number": "Customer 3 building number",
+  "address": {
+    "street": "Customer 4 Street Name",
+    "cep": "XXXXX-XXX",
+    "city": "Customer 4 City",
+    "number": "Customer 4 building number",
+    "neighborhood": "neighborhood"
+  },
   "comment": "Comments related to Customer 3"
 }

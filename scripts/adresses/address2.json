@@ -2,5 +2,6 @@
   "street": "street2",
   "cep": "2345678",
   "city": "PoA",
-  "number": "891"
+  "number": "891",
+  "neighborhood": "neighborhood"
 }
