@@ -30,7 +30,11 @@ function isIdNotPresent(req, res) {
     return false;
 }
   
+function getModelValueIfUndefined(bodyValue, modelValue) {
+  return bodyValue === undefined ? modelValue : bodyValue;
+}
 
 
 exports.isInvalidId = isInvalidId;
 exports.isIdNotPresent = isIdNotPresent;
+exports.getModelValueIfUndefined = getModelValueIfUndefined;

@@ -2,7 +2,7 @@ const { StatusCodes, getReasonPhrase } = require("http-status-codes");
 const db = require("../models");
 const handleApiError = require("./utils/apiErrorHandler");
 const { hasInvalidQuery } = require("./utils/queryValidator");
-const { isInvalidId, isIdNotPresent } = require("./utils/genericBodyValidator");
+const { isInvalidId, isIdNotPresent, getModelValueIfUndefined } = require("./utils/genericBodyValidator");
 const { addXTotalCount } = require("./utils/headerHelper");
 
 exports.create = (req, res) => {
@@ -103,22 +103,22 @@ exports.update = async (req, res) => {
   var stockItem = await db.stockItem.findOne(filter);
 
   const newAttributes = {
-    name: req.body.name || stockItem.name,
-    type: req.body.type || stockItem.type,
-    power: req.body.power || stockItem.power,
-    brand: req.body.brand || stockItem.brand,
-    model: req.body.model || stockItem.model,
-    status: req.body.status || stockItem.status,
-    numberOfUses: req.body.numberOfUses || stockItem.numberOfUses,
-    lastMaintenance: req.body.lastMaintenance || stockItem.lastMaintenance,
-    acquisitionDate: req.body.acquisitionDate || stockItem.acquisitionDate,
-    imageURL: req.body.imageURL || stockItem.imageURL,
-    rentValue: req.body.rentValue || stockItem.rentValue,
-    replacementCost: req.body.replacementCost || stockItem.replacementCost,
-    code: req.body.code || stockItem.code,
-    comment: req.body.comment || stockItem.comment,
-    supplierId: req.body.supplierId || stockItem.supplierId,
-    active: req.body.active || stockItem.active
+    name: getModelValueIfUndefined(req.body.name, stockItem.name),
+    type: getModelValueIfUndefined(req.body.type, stockItem.type),
+    power: getModelValueIfUndefined(req.body.power, stockItem.power),
+    brand: getModelValueIfUndefined(req.body.brand, stockItem.brand),
+    model: getModelValueIfUndefined(req.body.model, stockItem.model),
+    status: getModelValueIfUndefined(req.body.status, stockItem.status),
+    numberOfUses: getModelValueIfUndefined(req.body.numberOfUses, stockItem.numberOfUses),
+    lastMaintenance: getModelValueIfUndefined(req.body.lastMaintenance, stockItem.lastMaintenance),
+    acquisitionDate: getModelValueIfUndefined(req.body.acquisitionDate, stockItem.acquisitionDate),
+    imageURL: getModelValueIfUndefined(req.body.imageURL, stockItem.imageURL),
+    rentValue: getModelValueIfUndefined(req.body.rentValue, stockItem.rentValue),
+    replacementCost: getModelValueIfUndefined(req.body.replacementCost, stockItem.replacementCost),
+    code: getModelValueIfUndefined(req.body.code, stockItem.code),
+    comment: getModelValueIfUndefined(req.body.comment, stockItem.comment),
+    supplierId: getModelValueIfUndefined(req.body.supplierId, stockItem.supplierId),
+    active: getModelValueIfUndefined(req.body.active, stockItem.active)
   }
 
   const oldStatus = stockItem.status;
