@@ -18,6 +18,7 @@ exports.create = (req, res) => {
     value: req.body.value,
     status: req.body.status,
     comment: req.body.comment,
+    rentContractId: req.body.rentContractId,
     invoiceNumber: req.body.invoiceNumber
   }).then(async (createdItem) => {
     var rentContract = await db.rentContract.findOne({where: {id: createdItem.rentContractId}});

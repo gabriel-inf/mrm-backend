@@ -111,7 +111,7 @@ This will also update the endDate of the rentContract associated with this addit
   "value": 1200,
   "status": "APPROVED",
   "comment": "Additive 1",
-	"invoiceNumber": "Boleto",
+	"invoiceNumber": "123",
   "rentContractId": 2
 }
 ```

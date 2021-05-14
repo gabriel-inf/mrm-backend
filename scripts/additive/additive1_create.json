@@ -9,6 +9,6 @@
   "value": 1200.20,
   "status": "APPROVED",
   "comment": "Additive 1",
-	"invoiceNumber": "Boleto",
+	"invoiceNumber": "123",
   "rentContractId": 2
 }
