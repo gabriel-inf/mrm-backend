@@ -72,7 +72,7 @@ exports.deleteOne = async (req, res) => {
   db.supplier.destroy({
     where: {id: req.params.id}
   })
-  .then(() => res.send("success"));
+  .then(() => res.send());
 };
 
 exports.deleteAll = (req, res) => {
@@ -80,7 +80,7 @@ exports.deleteAll = (req, res) => {
     where: {},
     truncate: true,
     cascade: true
-  }).then(() => res.send("success"));
+  }).then(() => res.send());
 };
 
 exports.update = async (req, res) => {

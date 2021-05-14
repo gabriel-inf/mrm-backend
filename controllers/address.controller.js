@@ -64,7 +64,7 @@ exports.deleteOne = (req, res) => {
     where: {
       id: req.params.id
     }
-  }).then(() => res.send("success"));
+  }).then(() => res.send());
 };
 
 // delete all addresses
@@ -74,7 +74,7 @@ exports.deleteAll = (req, res) => {
       // all records
     },
     truncate: true
-  }).then(() => res.send("success"));
+  }).then(() => res.send());
 };
 
 // edit a address
@@ -93,5 +93,5 @@ exports.update = async (req, res) => {
     {
       where: { id: req.params.id }
     }
-  ).then(() => res.send("success"));
+  ).then((newObject) => res.send(newObject));
 };
