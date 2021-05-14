@@ -7,7 +7,7 @@
   "receiptUrl": "urlforthereceit.com",
   "contractUrl": "urlforthecontract.com",
   "durationMode": "30DAYS",
-  "value": 1200,
+  "value": 1200.78,
   "status": "APPROVED",
   "customerId": 2,
   "comment": "Contract 2",

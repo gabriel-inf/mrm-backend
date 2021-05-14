@@ -6,7 +6,7 @@
   "paidAt": null,
   "receiptUrl": "urlforthereceit.com",
   "contractUrl": "urlforthecontract.com",
-  "value": 1200,
+  "value": 1200.20,
   "status": "APPROVED",
   "comment": "Additive 1",
   "rentContractId": 2

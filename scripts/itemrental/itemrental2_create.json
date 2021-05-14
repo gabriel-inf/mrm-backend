@@ -1,7 +1,7 @@
 {
   "leftAt": null,
   "ReturnedAt": null,
-  "value": 1000,
+  "value": 1000.98,
   "stockItemId": 10,
   "rentContractId": 1,
   "comment": "itemRental 10 - Contract 1"

@@ -18,7 +18,13 @@ module.exports = (sequelize, DataTypes) => {
   ItemRental.init({
     leftAt: DataTypes.DATE,
     returnedAt: DataTypes.DATE,
-    value: DataTypes.DECIMAL,
+    value: {
+      type: DataTypes.DECIMAL(10, 2),
+      get() {
+        const value = this.getDataValue('value');
+        return value === null ? null : parseFloat(value);
+      }
+    },
     comment: DataTypes.TEXT
   }, {
     sequelize,

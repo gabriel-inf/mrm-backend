@@ -27,8 +27,20 @@ module.exports = (sequelize, DataTypes) => {
     lastMaintenance: DataTypes.DATE,
     acquisitionDate: DataTypes.DATE,
     imageURL: DataTypes.STRING,
-    rentValue: DataTypes.DECIMAL,
-    replacementCost: DataTypes.DECIMAL,
+    rentValue: {
+      type: DataTypes.DECIMAL(10, 2),
+      get() {
+        const value = this.getDataValue('rentValue');
+        return value === null ? null : parseFloat(value);
+      }
+    },
+    replacementCost: {
+      type: DataTypes.DECIMAL(10, 2),
+      get() {
+        const value = this.getDataValue('replacementCost');
+        return value === null ? null : parseFloat(value);
+      }
+    },
     active: DataTypes.BOOLEAN,
     code: {
       type: DataTypes.STRING,

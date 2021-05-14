@@ -22,7 +22,13 @@ module.exports = (sequelize, DataTypes) => {
     paidAt: DataTypes.DATE,
     receiptUrl: DataTypes.STRING,
     contractUrl: DataTypes.STRING,
-    value: DataTypes.DECIMAL,
+    value: {
+      type: DataTypes.DECIMAL(10, 2),
+      get() {
+        const value = this.getDataValue('value');
+        return value === null ? null : parseFloat(value);
+      }
+    },
     status: DataTypes.STRING,
     comment: DataTypes.TEXT
   }, {
