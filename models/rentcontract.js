@@ -25,6 +25,9 @@ module.exports = (sequelize, DataTypes) => {
     receiptUrl: DataTypes.STRING,
     contractUrl: DataTypes.STRING,
     durationMode: DataTypes.STRING,
+    paymentType: DataTypes.STRING,
+    contractNumber: DataTypes.STRING,
+    invoiceNumber: DataTypes.STRING,
     value: {
       type: DataTypes.DECIMAL(10, 2),
       get() {

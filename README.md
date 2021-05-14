@@ -69,6 +69,9 @@ When creating a supplier instance, you can pass the address with it, but it is n
   "receiptUrl": "urlforthereceit.com",
   "contractUrl": "urlforthecontract.com",
   "durationMode": "30DAYS",
+	"paymentType": "Boleto",
+	"contractNumber": "123123",
+	"invoiceNumber": "123123",
   "value": 1300,
   "status": "APPROVED",
   "customerId": 1,
@@ -108,6 +111,7 @@ This will also update the endDate of the rentContract associated with this addit
   "value": 1200,
   "status": "APPROVED",
   "comment": "Additive 1",
+	"invoiceNumber": "Boleto",
   "rentContractId": 2
 }
 ```

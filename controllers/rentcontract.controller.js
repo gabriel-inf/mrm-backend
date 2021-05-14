@@ -36,6 +36,9 @@ exports.create = (req, res) => {
     status: req.body.status,
     customerId: req.body.customerId,
     comment: req.body.comment,
+    paymentType: req.body.paymentType,
+    contractNumber: req.body.contractNumber,
+    invoiceNumber: req.body.invoiceNumber,
     itemRentals: itemRentals
   }, {
     include: [db.itemRental]
@@ -139,7 +142,10 @@ exports.update = async (req, res) => {
     value: req.body.value || rentContract.value,
     status: req.body.status || rentContract.status,
     customerId: req.body.customerId || rentContract.customerId,
-    comment: req.body.comment || rentContract.comment
+    comment: req.body.comment || rentContract.comment,
+    paymentType: req.body.paymentType || rentContract.paymentType,
+    contractNumber: req.body.contractNumber || rentContract.contractNumber,
+    invoiceNumber: req.body.invoiceNumber || rentContract.invoiceNumber
   }
 
   rentContract.update(newAttributes)
