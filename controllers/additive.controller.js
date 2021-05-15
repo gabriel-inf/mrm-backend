@@ -13,13 +13,14 @@ exports.create = (req, res) => {
     approvalDate: req.body.approvalDate,
     paymentDueDate: req.body.paymentDueDate,
     paidAt: req.body.paidAt,
-    receiptUrl: req.body.receiptUrl,
     contractUrl: req.body.contractUrl,
     value: req.body.value,
     status: req.body.status,
     comment: req.body.comment,
     rentContractId: req.body.rentContractId,
-    invoiceNumber: req.body.invoiceNumber
+    invoiceNumber: req.body.invoiceNumber,
+    invoiceStatus: req.body.invoiceStatus,
+    invoiceUrl: req.body.invoiceUrl
   }).then(async (createdItem) => {
     var rentContract = await db.rentContract.findOne({where: {id: createdItem.rentContractId}});
     await rentContract.update({
@@ -99,7 +100,7 @@ exports.update = async (req, res) => {
 
   if (isIdNotPresent(req, res)) return;
   if (await isInvalidId(req, res, db.additive)) return;
- 
+
   const filter = {
     where: { id: req.params.id }
   };
@@ -107,18 +108,19 @@ exports.update = async (req, res) => {
   var additive = await db.additive.findOne(filter);
 
   const newAttributes = {
-    startDate: req.body.startDate || additive.startDate,
-    endDate: req.body.endDate || additive.endDate,
-    approvalDate: req.body.approvalDate || additive.approvalDate,
-    paymentDueDate: req.body.paymentDueDate || additive.paymentDueDate,
-    paidAt: req.body.paidAt || additive.paidAt,
-    receiptUrl: req.body.receiptUrl || additive.receiptUrl,
-    contractUrl: req.body.contractUrl || additive.contractUrl,
-    value: req.body.value || additive.value,
-    status: req.body.status || additive.status,
-    rentContractId: req.body.rentContractId || additive.rentContractId,
-    comment: req.body.comment || additive.comment,
-    invoiceNumber: req.body.invoiceNumber || additive.invoiceNumber
+    startDate: req.body.startDate,
+    endDate: req.body.endDate,
+    approvalDate: req.body.approvalDate,
+    paymentDueDate: req.body.paymentDueDate,
+    paidAt: req.body.paidAt,
+    contractUrl: req.body.contractUrl,
+    value: req.body.value,
+    status: req.body.status,
+    rentContractId: req.body.rentContractId,
+    comment: req.body.comment,
+    invoiceNumber: req.body.invoiceNumber,
+    invoiceStatus: req.body.invoiceStatus,
+    invoiceUrl: req.body.invoiceUrl
   }
 
   additive.update(newAttributes)
