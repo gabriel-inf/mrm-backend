@@ -24,6 +24,10 @@ exports.create = (req, res) => {
     comment: req.body.comment,
     supplierId: req.body.supplierId,
     active: req.body.active,
+    pressure: req.body.pressure,
+    throughput: req.body.throughput,
+    voltage: req.body.voltage,
+    serialNumber: req.body.serialNumber,
     stockItemEvents: [{
       status: req.body.status,
       comment: req.body.statusComment
@@ -95,7 +99,7 @@ exports.deleteAll = async (req, res) => {
 exports.update = async (req, res) => {
   if (isIdNotPresent(req, res)) return;
   if (await isInvalidId(req, res, db.stockItem)) return;
- 
+
   const filter = {
     where: { id: req.params.id }
   };
@@ -118,7 +122,11 @@ exports.update = async (req, res) => {
     code: getModelValueIfUndefined(req.body.code, stockItem.code),
     comment: getModelValueIfUndefined(req.body.comment, stockItem.comment),
     supplierId: getModelValueIfUndefined(req.body.supplierId, stockItem.supplierId),
-    active: getModelValueIfUndefined(req.body.active, stockItem.active)
+    active: getModelValueIfUndefined(req.body.active, stockItem.active),
+    pressure: getModelValueIfUndefined(req.body.pressure, stockItem.pressure),
+    throughput: getModelValueIfUndefined(req.body.throughput, stockItem.throughput),
+    voltage: getModelValueIfUndefined(req.body.voltage, stockItem.voltage),
+    serialNumber: getModelValueIfUndefined(req.body.serialNumber, stockItem.serialNumber),
   }
 
   const oldStatus = stockItem.status;
