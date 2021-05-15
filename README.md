@@ -9,12 +9,21 @@
 
 > make sure you have docker compose installed. [How to install docker-compose](https://docs.docker.com/compose/install/)
 
-## Todo
+## Database Diagram
 
-- [] Integrate with a real database.
-- [] Create services that will have DAO layers associated that will make room for complex queries.
-- [] Integrate with a real database.
-- [] Integrate with a real database.
+![High level Database Diagram](./diagram/MRM%20Database.png "High level Database Diagram")
+
+### Updating the diagram
+
+To update the diagram you would go to [online diagram maker tool](https://app.diagrams.net/) and import the file `./diagram/MRM Database.png` in this repo. There you can modify the diagram at will.
+
+Once you are done modifying the diagram:
+
+- Export it as png with borders set to `100`
+- Replace the file `./diagram/MRM Database.png` with the png you just exported (make sure to use the same name, that way this README file will be updated automatically).
+- Use the save function for the new diagram choosing the .xml format in the online diagram maker tool
+- Replace the file `./diagram/MRM Database.xml` with the .xml you just saved.
+- Stage, commit and push your changes to our GitHub repo
 
 ## Models
 
