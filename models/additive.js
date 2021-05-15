@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
     invoiceUrl: DataTypes.STRING,
     paymentType: DataTypes.STRING,
     paymentComment: DataTypes.STRING,
-    contractNumber: DataTypes.STRING,
+    contractNumber: DataTypes.INTEGER,
     installments: DataTypes.INTEGER,
     period: DataTypes.INTEGER,
     value: {
