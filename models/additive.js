@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
     paymentDueDate: DataTypes.DATE,
     paidAt: DataTypes.DATE,
     contractUrl: DataTypes.STRING,
-    invoiceNumber: DataTypes.STRING,
+    invoiceNumber: DataTypes.INTEGER,
     invoiceStatus: DataTypes.STRING,
     invoiceUrl: DataTypes.STRING,
     paymentType: DataTypes.STRING,
