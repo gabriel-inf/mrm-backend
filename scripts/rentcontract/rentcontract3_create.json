@@ -9,7 +9,6 @@
   "contractUrl": "urlforthecontract.com",
   "durationMode": "30DAYS",
 	"paymentType": "Boleto",
-	"contractNumber": "123123",
   "paymentComment": "Payment comment for Contract 3",
   "workingHours": "8H",
   "deliveryMode": "DELIVERY",

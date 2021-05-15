@@ -14,7 +14,6 @@
   "period": 31,
   "paymentType": "CREDIT",
   "paymentComment": "Payment comment",
-  "contractNumber": "981376",
   "installments": 1,
   "rentContractId": 1
 }
