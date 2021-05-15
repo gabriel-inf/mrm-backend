@@ -39,7 +39,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     contractNumber: DataTypes.STRING,
-    invoiceNumber: DataTypes.STRING,
+    invoiceNumber: DataTypes.INTEGER,
     invoiceStatus: DataTypes.STRING,
     invoiceUrl: DataTypes.STRING,
     value: {
