@@ -71,7 +71,6 @@ When creating a supplier instance, you can pass the address with it, but it is n
   "period": 30,
   "durationMode": "30DAYS",
   "paymentType": "Boleto",
-  "contractNumber": "123123",
   "paymentComment": "Payment comment for Contract 4",
   "workingHours": "24H",
   "deliveryMode": "PICKUP",
@@ -124,7 +123,6 @@ This will also update the endDate of the rentContract associated with this addit
   "period": 31,
   "paymentType": "CREDIT",
   "paymentComment": "Payment comment",
-  "contractNumber": "981376",
   "installments": 1,
   "rentContractId": 2
 }
