@@ -24,6 +24,11 @@ module.exports = (sequelize, DataTypes) => {
     invoiceNumber: DataTypes.STRING,
     invoiceStatus: DataTypes.STRING,
     invoiceUrl: DataTypes.STRING,
+    paymentType: DataTypes.STRING,
+    paymentComment: DataTypes.STRING,
+    contractNumber: DataTypes.STRING,
+    installments: DataTypes.INTEGER,
+    period: DataTypes.INTEGER,
     value: {
       type: DataTypes.DECIMAL(10, 2),
       get() {
