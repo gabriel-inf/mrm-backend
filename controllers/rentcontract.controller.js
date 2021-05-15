@@ -1,12 +1,13 @@
 const { StatusCodes, getReasonPhrase } = require("http-status-codes");
 const db = require("../models");
+const helpers = require("./utils/helpers")
 const handleApiError = require("./utils/apiErrorHandler");
 const { hasInvalidQuery } = require("./utils/queryValidator");
 const { isInvalidId, isIdNotPresent } = require("./utils/genericBodyValidator");
 const { addXTotalCount } = require("./utils/headerHelper");
 
 
-exports.create = (req, res) => {
+exports.create = async (req, res) => {
   var itemRentals = [];
   if(req.body.itemRentals) {
     var itemRentalsLength = req.body.itemRentals.length;
@@ -37,7 +38,7 @@ exports.create = (req, res) => {
     comment: req.body.comment,
     paymentType: req.body.paymentType,
     contractNumber: req.body.contractNumber,
-    invoiceNumber: req.body.invoiceNumber,
+    invoiceNumber: await helpers.get_new_invoice_number(),
     invoiceStatus: req.body.invoiceStatus,
     invoiceUrl: req.body.invoiceUrl,
     paymentComment: req.body.paymentComment,
@@ -152,7 +153,7 @@ exports.update = async (req, res) => {
     comment: req.body.comment,
     paymentType: req.body.paymentType,
     contractNumber: req.body.contractNumber,
-    invoiceNumber: req.body.invoiceNumber,
+    invoiceNumber: rentContract.invoiceNumber,
     invoiceStatus: req.body.invoiceStatus,
     invoiceUrl: req.body.invoiceUrl,
     paymentComment: req.body.paymentComment,
