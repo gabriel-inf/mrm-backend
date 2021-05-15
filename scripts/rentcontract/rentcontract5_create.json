@@ -10,7 +10,6 @@
   "durationMode": "30DAYS",
 	"paymentType": "Boleto",
 	"contractNumber": "123123",
-	"invoiceNumber": 123126,
   "paymentComment": "Payment comment for Contract 5",
   "workingHours": "24H",
   "deliveryMode": "DELIVERY",

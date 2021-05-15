@@ -12,7 +12,6 @@
   "invoiceStatus": "pendente",
   "invoiceUrl": "invoiceurl.com",
   "period": 31,
-	"invoiceNumber": 125132,
   "paymentType": "CREDIT",
   "paymentComment": "Payment comment",
   "contractNumber": "981376",
