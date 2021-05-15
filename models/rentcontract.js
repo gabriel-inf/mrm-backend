@@ -29,7 +29,6 @@ module.exports = (sequelize, DataTypes) => {
     workingHours: DataTypes.STRING,
     deliveryMode: DataTypes.STRING,
     installments: DataTypes.INTEGER,
-    invoiceNumber: DataTypes.INTEGER,
     additivesEndDate: DataTypes.DATE,
     period: DataTypes.INTEGER,
     deliveryCost: {
