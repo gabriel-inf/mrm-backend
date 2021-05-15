@@ -40,6 +40,13 @@ exports.create = (req, res) => {
     invoiceNumber: req.body.invoiceNumber,
     invoiceStatus: req.body.invoiceStatus,
     invoiceUrl: req.body.invoiceUrl,
+    paymentComment: req.body.paymentComment,
+    workingHours: req.body.workingHours,
+    period: req.body.period,
+    deliveryMode: req.body.deliveryMode,
+    installments: req.body.installments,
+    additivesEndDate: req.body.additivesEndDate,
+    deliveryCost: req.body.deliveryCost,
     itemRentals: itemRentals
   }, {
     include: [db.itemRental]
@@ -147,7 +154,14 @@ exports.update = async (req, res) => {
     contractNumber: req.body.contractNumber,
     invoiceNumber: req.body.invoiceNumber,
     invoiceStatus: req.body.invoiceStatus,
-    invoiceUrl: req.body.invoiceUrl
+    invoiceUrl: req.body.invoiceUrl,
+    paymentComment: req.body.paymentComment,
+    period: req.body.period,
+    workingHours: req.body.workingHours,
+    deliveryMode: req.body.deliveryMode,
+    installments: req.body.installments,
+    additivesEndDate: req.body.additivesEndDate,
+    deliveryCost: req.body.deliveryCost,
   }
 
   rentContract.update(newAttributes)
