@@ -117,10 +117,17 @@ This will also update the endDate of the rentContract associated with this addit
   "paidAt": null,
   "receiptUrl": "urlforthereceit.com",
   "contractUrl": "urlforthecontract.com",
-  "value": 1200,
+  "value": 1200.20,
   "status": "APPROVED",
   "comment": "Additive 1",
-  "invoiceNumber": "123",
+	"invoiceNumber": "123",
+  "invoiceStatus": "pendente",
+  "invoiceUrl": "invoiceurl.com",
+  "period": 31,
+  "paymentType": "CREDIT",
+  "paymentComment": "Payment comment",
+  "contractNumber": "981376",
+  "installments": 1,
   "rentContractId": 2
 }
 ```
