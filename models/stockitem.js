@@ -27,6 +27,10 @@ module.exports = (sequelize, DataTypes) => {
     lastMaintenance: DataTypes.DATE,
     acquisitionDate: DataTypes.DATE,
     imageURL: DataTypes.STRING,
+    pressure: DataTypes.STRING,
+    throughput: DataTypes.STRING,
+    voltage: DataTypes.STRING,
+    serialNumber: DataTypes.STRING,
     rentValue: {
       type: DataTypes.DECIMAL(10, 2),
       get() {
@@ -50,6 +54,6 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'stockItem',
-  }); 
+  });
   return StockItem;
 };
