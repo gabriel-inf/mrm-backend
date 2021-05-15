@@ -10,5 +10,12 @@
   "status": "APPROVED",
   "comment": "Additive 1",
 	"invoiceNumber": "123",
+  "invoiceStatus": "pendente",
+  "invoiceUrl": "invoiceurl.com",
+  "period": 31,
+  "paymentType": "CREDIT",
+  "paymentComment": "Payment comment",
+  "contractNumber": "981376",
+  "installments": 1,
   "rentContractId": 2
 }
