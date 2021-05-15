@@ -29,7 +29,6 @@ exports.create = (req, res) => {
     approvalDate: req.body.approvalDate,
     paymentDueDate: req.body.paymentDueDate,
     paidAt: req.body.paidAt,
-    receiptUrl: req.body.receiptUrl,
     contractUrl: req.body.contractUrl,
     durationMode: req.body.durationMode,
     value: req.body.value,
@@ -39,6 +38,8 @@ exports.create = (req, res) => {
     paymentType: req.body.paymentType,
     contractNumber: req.body.contractNumber,
     invoiceNumber: req.body.invoiceNumber,
+    invoiceStatus: req.body.invoiceStatus,
+    invoiceUrl: req.body.invoiceUrl,
     itemRentals: itemRentals
   }, {
     include: [db.itemRental]
@@ -123,7 +124,7 @@ exports.update = async (req, res) => {
 
   if (isIdNotPresent(req, res)) return;
   if (await isInvalidId(req, res, db.rentContract)) return;
- 
+
   const filter = {
     where: { id: req.params.id }
   };
@@ -131,21 +132,22 @@ exports.update = async (req, res) => {
   var rentContract = await db.rentContract.findOne(filter);
 
   const newAttributes = {
-    startDate: req.body.startDate || rentContract.startDate,
-    endDate: req.body.endDate || rentContract.endDate,
-    approvalDate: req.body.approvalDate || rentContract.approvalDate,
-    paymentDueDate: req.body.paymentDueDate || rentContract.paymentDueDate,
-    paidAt: req.body.paidAt || rentContract.paidAt,
-    receiptUrl: req.body.receiptUrl || rentContract.receiptUrl,
-    contractUrl: req.body.contractUrl || rentContract.contractUrl,
-    durationMode: req.body.durationMode || rentContract.durationMode,
-    value: req.body.value || rentContract.value,
-    status: req.body.status || rentContract.status,
-    customerId: req.body.customerId || rentContract.customerId,
-    comment: req.body.comment || rentContract.comment,
-    paymentType: req.body.paymentType || rentContract.paymentType,
-    contractNumber: req.body.contractNumber || rentContract.contractNumber,
-    invoiceNumber: req.body.invoiceNumber || rentContract.invoiceNumber
+    startDate: req.body.startDate,
+    endDate: req.body.endDate,
+    approvalDate: req.body.approvalDate,
+    paymentDueDate: req.body.paymentDueDate,
+    paidAt: req.body.paidAt,
+    contractUrl: req.body.contractUrl,
+    durationMode: req.body.durationMode,
+    value: req.body.value,
+    status: req.body.status,
+    customerId: req.body.customerId,
+    comment: req.body.comment,
+    paymentType: req.body.paymentType,
+    contractNumber: req.body.contractNumber,
+    invoiceNumber: req.body.invoiceNumber,
+    invoiceStatus: req.body.invoiceStatus,
+    invoiceUrl: req.body.invoiceUrl
   }
 
   rentContract.update(newAttributes)
