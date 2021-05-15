@@ -25,6 +25,20 @@ module.exports = (sequelize, DataTypes) => {
     contractUrl: DataTypes.STRING,
     durationMode: DataTypes.STRING,
     paymentType: DataTypes.STRING,
+    paymentComment: DataTypes.STRING,
+    workingHours: DataTypes.STRING,
+    deliveryMode: DataTypes.STRING,
+    installments: DataTypes.INTEGER,
+    invoiceNumber: DataTypes.INTEGER,
+    additivesEndDate: DataTypes.DATE,
+    period: DataTypes.INTEGER,
+    deliveryCost: {
+      type: DataTypes.DECIMAL(10, 2),
+      get() {
+        const value = this.getDataValue('deliveryCost');
+        return value === null ? null : parseFloat(value);
+      }
+    },
     contractNumber: DataTypes.STRING,
     invoiceNumber: DataTypes.STRING,
     invoiceStatus: DataTypes.STRING,
