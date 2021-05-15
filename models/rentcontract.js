@@ -38,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
         return value === null ? null : parseFloat(value);
       }
     },
-    contractNumber: DataTypes.STRING,
+    contractNumber: DataTypes.INTEGER,
     invoiceNumber: DataTypes.INTEGER,
     invoiceStatus: DataTypes.STRING,
     invoiceUrl: DataTypes.STRING,
