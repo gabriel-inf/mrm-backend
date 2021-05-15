@@ -20,7 +20,12 @@ exports.create = (req, res) => {
     rentContractId: req.body.rentContractId,
     invoiceNumber: req.body.invoiceNumber,
     invoiceStatus: req.body.invoiceStatus,
-    invoiceUrl: req.body.invoiceUrl
+    invoiceUrl: req.body.invoiceUrl,
+    paymentType: req.body.paymentType,
+    paymentComment: req.body.paymentComment,
+    contractNumber: req.body.contractNumber,
+    installments: req.body.installments,
+    period: req.body.period
   }).then(async (createdItem) => {
     var rentContract = await db.rentContract.findOne({where: {id: createdItem.rentContractId}});
     await rentContract.update({
@@ -120,7 +125,12 @@ exports.update = async (req, res) => {
     comment: req.body.comment,
     invoiceNumber: req.body.invoiceNumber,
     invoiceStatus: req.body.invoiceStatus,
-    invoiceUrl: req.body.invoiceUrl
+    invoiceUrl: req.body.invoiceUrl,
+    paymentType: req.body.paymentType,
+    paymentComment: req.body.paymentComment,
+    contractNumber: req.body.contractNumber,
+    installments: req.body.installments,
+    period: req.body.period
   }
 
   additive.update(newAttributes)
