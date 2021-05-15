@@ -1,12 +1,13 @@
 const { StatusCodes, getReasonPhrase } = require("http-status-codes");
 const db = require("../models");
 const handleApiError = require("./utils/apiErrorHandler");
+const helpers = require("./utils/helpers")
 const { hasInvalidQuery } = require("./utils/queryValidator");
 const { isInvalidId, isIdNotPresent } = require("./utils/genericBodyValidator");
 const { addXTotalCount } = require("./utils/headerHelper");
 
 
-exports.create = (req, res) => {
+exports.create = async (req, res) => {
   db.additive.create({
     startDate: req.body.startDate,
     endDate: req.body.endDate,
@@ -18,7 +19,7 @@ exports.create = (req, res) => {
     status: req.body.status,
     comment: req.body.comment,
     rentContractId: req.body.rentContractId,
-    invoiceNumber: req.body.invoiceNumber,
+    invoiceNumber: await helpers.get_new_invoice_number(),
     invoiceStatus: req.body.invoiceStatus,
     invoiceUrl: req.body.invoiceUrl,
     paymentType: req.body.paymentType,
@@ -123,7 +124,7 @@ exports.update = async (req, res) => {
     status: req.body.status,
     rentContractId: req.body.rentContractId,
     comment: req.body.comment,
-    invoiceNumber: req.body.invoiceNumber,
+    invoiceNumber: additive.invoiceNumber,
     invoiceStatus: req.body.invoiceStatus,
     invoiceUrl: req.body.invoiceUrl,
     paymentType: req.body.paymentType,
