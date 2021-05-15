@@ -24,7 +24,7 @@ exports.create = async (req, res) => {
     invoiceUrl: req.body.invoiceUrl,
     paymentType: req.body.paymentType,
     paymentComment: req.body.paymentComment,
-    contractNumber: req.body.contractNumber,
+    contractNumber: await helpers.get_contract_number_from_rent_contract(req.body.rentContractId),
     installments: req.body.installments,
     period: req.body.period
   }).then(async (createdItem) => {
@@ -129,7 +129,7 @@ exports.update = async (req, res) => {
     invoiceUrl: req.body.invoiceUrl,
     paymentType: req.body.paymentType,
     paymentComment: req.body.paymentComment,
-    contractNumber: req.body.contractNumber,
+    contractNumber: additive.contractNumber,
     installments: req.body.installments,
     period: req.body.period
   }
