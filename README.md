@@ -14,12 +14,14 @@
   - [Database Diagram](#database-diagram)
     - [Updating the diagram](#updating-the-diagram)
   - [Models](#models)
-    - [Customer](#customer)
-    - [Supplier](#supplier)
-    - [RentContract](#rentcontract)
     - [Additive](#additive)
+    - [Address](#address)
+    - [Customer](#customer)
     - [ItemRental](#itemrental)
+    - [RentContract](#rentcontract)
     - [StockItem](#stockitem)
+    - [Stock Item Event](#stock-item-event)
+    - [Supplier](#supplier)
 
 ## Setup
 
@@ -124,90 +126,6 @@ Once you are done modifying the diagram:
 
 ## Models
 
-### Customer
-
-When creating a customer instance, you can pass the address with it, but it is not part of the same table. They are related by a customerId field in the address table
-
-```json
-{
-  "name": "Customer 1 Name",
-  "commercialName": "Customer 1 Commercial Name",
-  "cnpj": "XX.XXX.XXX/YYYY-ZZ",
-  "mobilePhone": "(XX) XXX-XXX-XXX",
-  "email": "supplier1@email.com",
-  "active": true,
-  "street": "Customer 1 Street Name",
-  "cep": "XXXXX-XXX",
-  "city": "Customer 1 City",
-  "number": "Customer 1 building number",
-  "comment": "Comments related to Customer 1"
-}
-```
-
-### Supplier
-
-When creating a supplier instance, you can pass the address with it, but it is not part of the same table. They are related by a supplierId field in the address table
-
-```json
-{
-  "name": "Supplier 1 Name",
-  "commercialName": "Supplier 1 Commercial Name",
-  "mobilePhone": "(XX) XXX-XXX-XXX",
-  "email": "supplier1@email.com",
-  "active": true,
-  "street": "Supplier 1 Street Name",
-  "cep": "XXXXX-XXX",
-  "city": "Supplier 1 City",
-  "number": "Supplier 1 building number",
-  "comment": "Comments related to Supplier 1"
-}
-```
-
-### RentContract
-
-```json
-{
-  "startDate": "2021-04-10",
-  "endDate": "2021-05-10",
-  "approvalDate": "2021-04-05",
-  "paymentDueDate": "2021-05-20",
-  "paidAt": null,
-  "receiptUrl": "urlforthereceit.com",
-  "contractUrl": "urlforthecontract.com",
-  "period": 30,
-  "durationMode": "30DAYS",
-  "paymentType": "Boleto",
-  "paymentComment": "Payment comment for Contract 4",
-  "workingHours": "24H",
-  "deliveryMode": "PICKUP",
-  "installments": "1",
-  "additivesEndDate": "2021-05-10",
-  "deliveryCost": 50,
-  "invoiceStatus": "pending",
-  "invoiceUrl": "invoiceurl.com",
-  "value": 1300,
-  "status": "APPROVED",
-  "customerId": 1,
-  "comment": "Contract 1",
-  "itemRentals": [
-    {
-      "leftAt": null,
-      "ReturnedAt": null,
-      "value": 100,
-      "stockItemId": 1,
-      "comment": "itemRental 1"
-    },
-    {
-      "leftAt": null,
-      "ReturnedAt": null,
-      "value": 200,
-      "stockItemId": 2,
-      "comment": "itemRental 2"
-    }
-  ]
-}
-```
-
 ### Additive
 
 This will also update the endDate of the rentContract associated with this additive
@@ -234,16 +152,98 @@ This will also update the endDate of the rentContract associated with this addit
 }
 ```
 
+### Address
+
+```json
+{
+  "street": "street1",
+  "cep": "1234567",
+  "city": "PoA",
+  "number": "912",
+  "neighborhood": "neighborhood",
+  "customerId": null,
+  "supplierId": 3
+}
+```
+
+### Customer
+
+When creating a customer instance, you can pass the address with it, but it is not part of the same table. They are related by a customerId field in the address table
+
+```json
+{
+  "name": "Customer 1 Name",
+  "commercialName": "Customer 1 Commercial Name",
+  "cnpj": "00.000.000/2020-00",
+  "mobilePhone": "(XX) XXX-XXX-XXX",
+  "email": "customer1@email.com",
+  "active": true,
+  "address": {
+    "street": "Customer 1 Street Name",
+    "cep": "XXXXX-XXX",
+    "city": "Customer 1 City",
+    "number": "Customer 1 building number",
+    "neighborhood": "neighborhood"
+  },
+  "comment": "Comments related to Customer 1"
+}
+```
+
 ### ItemRental
 
 ```json
 {
-  "leftAt": null,
+  "leftAt": "2021-05-22",
   "ReturnedAt": null,
-  "value": 900,
+  "value": 900.80,
   "stockItemId": 9,
   "rentContractId": 3,
   "comment": "itemRental 9 - Contract 3"
+}
+```
+
+### RentContract
+
+```json
+{
+  "startDate": "2021-04-10",
+  "endDate": "2021-05-10",
+  "approvalDate": "2021-04-05",
+  "paymentDueDate": "2021-05-20",
+  "period": 30,
+  "paidAt": null,
+  "receiptUrl": "urlforthereceit.com",
+  "contractUrl": "urlforthecontract.com",
+  "durationMode": "30DAYS",
+  "paymentType": "Boleto",
+  "paymentComment": "Payment comment for Contract 4",
+  "workingHours": "24H",
+  "deliveryMode": "PICKUP",
+  "installments": "1",
+  "additivesEndDate": "2021-05-10",
+  "deliveryCost": 50,
+  "invoiceStatus": "pending",
+  "invoiceUrl": "invoiceurl.com",
+  "value": 1900.67,
+  "status": "APPROVED",
+  "customerId": 4,
+  "comment": "Contract 4",
+  "itemRentals": [
+    {
+      "leftAt": null,
+      "ReturnedAt": null,
+      "value": 700,
+      "stockItemId": 7,
+      "comment": "itemRental 7"
+    },
+    {
+      "leftAt": null,
+      "ReturnedAt": null,
+      "value": 800,
+      "stockItemId": 8,
+      "comment": "itemRental 8"
+    }
+  ]
 }
 ```
 
@@ -264,8 +264,8 @@ Anytime the 'status' field is changed, a stockItemEvent is created to record it.
   "acquisitionDate": "2020-07-01",
   "needsMaintenance": false,
   "imageURL": "imageURL",
-  "rentValue": 500.50,
-  "replacementCost": 10000.50,
+  "rentValue": 100.7,
+  "replacementCost": 1000.5,
   "pressure": "2000",
   "throughput": "450",
   "voltage": "110",
@@ -274,6 +274,39 @@ Anytime the 'status' field is changed, a stockItemEvent is created to record it.
   "active": true,
   "comment": "Comment about Stock Item 1",
   "statusComment": "Just purchased. Sending straight to inventory",
-  "supplierId": 2
+  "supplierId": 1
+}
+```
+
+### Stock Item Event
+
+```json
+{
+  "stockItemId": 3,
+  "status": "MAINTENANCE",
+  "comment": "Sending machine to maintenance for power issues"
+}
+```
+
+### Supplier
+
+When creating a supplier instance, you can pass the address with it, but it is not part of the same table. They are related by a supplierId field in the address table
+
+```json
+{
+  "name": "Supplier 1 Name",
+  "commercialName": "Supplier 1 Commercial Name",
+  "cnpj": "XX.XXX.XXX/YYYY-Z1",
+  "mobilePhone": "(XX) XXX-XXX-XXX",
+  "email": "supplier1@email.com",
+  "active": true,
+  "address": {
+    "street": "Supplier 1 Street Name",
+    "cep": "XXXXX-XXX",
+    "city": "Supplier 1 City",
+    "number": "Supplier 1 building number",
+    "neighborhood": "neighborhood"
+  },
+  "comment": "Comments related to Supplier 1"
 }
 ```
