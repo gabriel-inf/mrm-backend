@@ -172,9 +172,18 @@ exports.getByCode = (req, res) => {
     },
     include: [db.supplier, db.stockItemEvent]
   })
-    .then(stockItem => {
-      addXTotalCount(res, stockItem.length);
-      res.send(stockItem);
+    .then(item => {
+      if (item.length > 0) {
+        res.send(item[0]);
+      } else {
+        res.status(StatusCodes.NOT_FOUND);
+        res.send(
+          {
+            "message": getReasonPhrase(StatusCodes.NOT_FOUND),
+            "code": req.params.code
+          }
+        );
+      }
     })
     .catch((err) => {
       handleApiError(res, err);
