@@ -17,6 +17,7 @@ const customerRoute = require("./routes/customer.route");
 const itemRoute = require("./routes/stockitem.route");
 const supplierRoute = require("./routes/supplier.route");
 const rentContractRoute = require("./routes/rentcontract.route");
+const stockItemEventRoute = require("./routes/stockitemevent.route");
 const itemRentalRoute = require("./routes/itemrental.route");
 const additiveRoute = require("./routes/additive.route");
 const dbRoute = require("./routes/db.route");
@@ -39,6 +40,7 @@ function addRoutesToTheApp() {
   app.use("/api/stockItems", itemRoute);
   app.use("/api/suppliers", supplierRoute);
   app.use("/api/rentcontracts", rentContractRoute);
+  app.use("/api/stockitemevents", stockItemEventRoute);
   app.use("/api/itemrentals", itemRentalRoute);
   app.use("/api/additives", additiveRoute);
   app.use("/db", dbRoute);
