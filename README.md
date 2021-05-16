@@ -19,7 +19,7 @@ To update the diagram you would go to [online diagram maker tool](https://app.di
 
 Once you are done modifying the diagram:
 
-- Export it as png with borders set to `100`
+- Export it as png with borders set to `10` and zoom set to `125%`
 - Replace the file `./diagram/MRM Database.png` with the png you just exported (make sure to use the same name, that way this README file will be updated automatically).
 - Use the save function for the new diagram choosing the .xml format in the online diagram maker tool
 - Replace the file `./diagram/MRM Database.xml` with the .xml you just saved.
