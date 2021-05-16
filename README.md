@@ -91,6 +91,7 @@
 - `GET /api/stockitems/rented` - Returns a list of all stock items with `status = 'RENTED'` in the DB in json format.
 - `POST /api/stockitems` - Creates a new stock item. Requires a description in json of the stock item in the body
 - `PUT /api/stockitems/:id` - Updates the fields of the stock item with the id = `:id` in the DB. Requires a description in json of the stock item, with the fields updated, in the body.
+- `PUT /api/stockitems/code/:code` - Updates the fields of the stock item with the code = `:code` in the DB. Requires a description in json of the stock item, with the fields updated, in the body.
 - `DELETE /api/stockitems/` - Deletes all the stock items from the DB. Returns no response
 - `DELETE /api/stockitems/:id` - Deletes the stock item with the id = `:id` from the DB. Returns no response
 

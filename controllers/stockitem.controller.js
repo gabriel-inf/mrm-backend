@@ -181,6 +181,57 @@ exports.getByCode = (req, res) => {
     });
 };
 
+// edit a item
+exports.updateByCode = async (req, res) => {
+
+  const filter = {
+    where: { code: req.params.code }
+  };
+
+  var stockItem = await db.stockItem.findOne(filter);
+
+  const newAttributes = {
+    name: getModelValueIfUndefined(req.body.name, stockItem.name),
+    type: getModelValueIfUndefined(req.body.type, stockItem.type),
+    power: getModelValueIfUndefined(req.body.power, stockItem.power),
+    brand: getModelValueIfUndefined(req.body.brand, stockItem.brand),
+    model: getModelValueIfUndefined(req.body.model, stockItem.model),
+    status: getModelValueIfUndefined(req.body.status, stockItem.status),
+    numberOfUses: getModelValueIfUndefined(req.body.numberOfUses, stockItem.numberOfUses),
+    lastMaintenance: getModelValueIfUndefined(req.body.lastMaintenance, stockItem.lastMaintenance),
+    needsMaintenance: getModelValueIfUndefined(req.body.needsMaintenance, stockItem.needsMaintenance),
+    acquisitionDate: getModelValueIfUndefined(req.body.acquisitionDate, stockItem.acquisitionDate),
+    imageURL: getModelValueIfUndefined(req.body.imageURL, stockItem.imageURL),
+    rentValue: getModelValueIfUndefined(req.body.rentValue, stockItem.rentValue),
+    replacementCost: getModelValueIfUndefined(req.body.replacementCost, stockItem.replacementCost),
+    code: getModelValueIfUndefined(req.body.code, stockItem.code),
+    comment: getModelValueIfUndefined(req.body.comment, stockItem.comment),
+    supplierId: getModelValueIfUndefined(req.body.supplierId, stockItem.supplierId),
+    active: getModelValueIfUndefined(req.body.active, stockItem.active),
+    pressure: getModelValueIfUndefined(req.body.pressure, stockItem.pressure),
+    throughput: getModelValueIfUndefined(req.body.throughput, stockItem.throughput),
+    voltage: getModelValueIfUndefined(req.body.voltage, stockItem.voltage),
+    serialNumber: getModelValueIfUndefined(req.body.serialNumber, stockItem.serialNumber),
+  }
+
+  const oldStatus = stockItem.status;
+
+  stockItem.update(newAttributes)
+  .then(updatedItem => {
+    if(oldStatus != updatedItem.status) {
+      db.stockItemEvent.create({
+        status: updatedItem.status,
+        comment: req.body.statusComment,
+        stockItemId: updatedItem.id
+      });
+    }
+    res.status(StatusCodes.CREATED);
+    res.send(updatedItem);
+  }).catch((err) => {
+    handleApiError(res, err);
+  });
+};
+
 // get rented machines
 exports.getRented = (req, res) => {
   db.stockItem.findAll({
