@@ -4,7 +4,7 @@
   "power": "Stock Item 8 Power",
   "brand": "Stock Item 8 Brand",
   "model": "Stock Item 8 Model",
-  "status": "INVENTORY",
+  "status": "MAINTENANCE",
   "numberOfUses": 85,
   "lastMaintenance": "2028-08-08",
   "acquisitionDate": "2020-07-08",

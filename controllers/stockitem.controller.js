@@ -257,7 +257,6 @@ exports.getRented = (req, res) => {
     });
 };
 
-// get by code
 exports.getNeedsMaintenanceList = (req, res) => {
   db.stockItem.findAll({
     where: {
@@ -268,6 +267,22 @@ exports.getNeedsMaintenanceList = (req, res) => {
     .then(items => {
       res.headers = addXTotalCount(res, items.length);
       console.log(JSON.stringify(res.headers));
+      res.send(items);
+    })
+    .catch((err) => {
+      handleApiError(res, err);
+    });
+};
+
+exports.getInMaintenanceList = (req, res) => {
+  db.stockItem.findAll({
+    where: {
+      status: "MAINTENANCE"
+    },
+    include: [db.supplier, db.stockItemEvent]
+  })
+    .then(items => {
+      res.headers = addXTotalCount(res, items.length);
       res.send(items);
     })
     .catch((err) => {

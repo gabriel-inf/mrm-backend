@@ -89,6 +89,7 @@
 
 - `GET /api/stockitems` - Returns a list of all stock items in the DB in json format
 - `GET /api/stockitems/list/needmaintenance` - Returns a list of all stock items in the DB that are set as needing maintenance in json format with item events and supplier information
+- `GET /api/stockitems/list/inmaintenance` - Returns a list of all stock items in the DB that are set as being in maintenance in json format with item events and supplier information
 - `GET /api/stockitems/:id` - Returns the stock item with id = `:id`, if one exists, including all of its stock item events and supplier information.
 - `GET /api/stockitems/:id/events` - Returns a list of all stock item events for the stock item with id = `:id` in the DB in json format
 - `GET /api/stockitems/code/:code` - Returns the stock item with code = `:code`, if one exists, including all of its stock item events and supplier information.
@@ -124,6 +125,7 @@
 - `GET /api/projetodedb/basicas/2` - Returns a list of all rent contracts which are on going or have an on going additive in the DB in json format with information on their customer and additives.
 - `GET /api/projetodedb/basicas/3/from/:start_date/to/:end_date` - Returns the total revenue for the period between the `:start_date` and `:end_date` in json format. **Obs:** Use the dates in format `YYYY-MM-DD`
 - `GET /api/projetodedb/basicas/4` - Returns a list of all stock items in the DB that are set as needing maintenance in json format with item events and supplier information
+- `GET /api/projetodedb/basicas/5` - Returns a list of all stock items in the DB that are set as being in maintenance in json format with item events and supplier information
 
 ## Database Diagram
 
