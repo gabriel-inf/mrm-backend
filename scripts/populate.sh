@@ -11,3 +11,4 @@ bash ${dir_path}/stockitem/create_stockitems.sh
 bash ${dir_path}/rentcontract/create_rentcontracts.sh
 bash ${dir_path}/itemrental/create_itemrentals.sh
 bash ${dir_path}/additive/create_additives.sh
+bash ${dir_path}/stockitemevent/create_stockitemevents.sh
