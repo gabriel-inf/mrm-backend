@@ -14,7 +14,7 @@ app.use(morgan('dev'));
 // import routes
 const addressRoute = require("./routes/address.route");
 const customerRoute = require("./routes/customer.route");
-const itemRoute = require("./routes/item.route");
+const itemRoute = require("./routes/stockitem.route");
 const supplierRoute = require("./routes/supplier.route");
 const rentContractRoute = require("./routes/rentcontract.route");
 const itemRentalRoute = require("./routes/itemrental.route");
@@ -33,7 +33,7 @@ db.sequelize.sync().then(() => {
 
 function addRoutesToTheApp() {
   logger.info("Adding routes...");
-  
+
   app.use("/api/addresses", addressRoute);
   app.use("/api/customers", customerRoute);
   app.use("/api/stockItems", itemRoute);

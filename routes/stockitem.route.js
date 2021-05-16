@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const {create, findAll, findOne, deleteAll, deleteOne, 
-    update} = require("../controllers/item.controller");
+const {create, findAll, findOne, deleteAll, deleteOne,
+    update} = require("../controllers/stockitem.controller");
 
 // CRUD
 router.get("/", findAll);
