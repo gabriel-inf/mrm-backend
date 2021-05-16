@@ -1,5 +1,26 @@
 # README
 
+- [README](#readme)
+  - [Setup](#setup)
+  - [Endpoints](#endpoints)
+    - [Additives](#additives)
+    - [Addresses](#addresses)
+    - [Customers](#customers)
+    - [Item Rentals](#item-rentals)
+    - [Rent Contracts](#rent-contracts)
+    - [Stock Items](#stock-items)
+    - [Stock Item Events](#stock-item-events)
+    - [Suppliers](#suppliers)
+  - [Database Diagram](#database-diagram)
+    - [Updating the diagram](#updating-the-diagram)
+  - [Models](#models)
+    - [Customer](#customer)
+    - [Supplier](#supplier)
+    - [RentContract](#rentcontract)
+    - [Additive](#additive)
+    - [ItemRental](#itemrental)
+    - [StockItem](#stockitem)
+
 ## Setup
 
 - run the database: `docker-compose up -d`
