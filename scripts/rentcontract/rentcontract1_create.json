@@ -23,14 +23,14 @@
   "comment": "Contract 1",
   "itemRentals": [
     {
-      "leftAt": null,
+      "leftAt": "2021-04-10",
       "ReturnedAt": null,
       "value": 100,
       "stockItemId": 1,
       "comment": "itemRental 1"
     },
     {
-      "leftAt": null,
+      "leftAt": "2021-04-10",
       "ReturnedAt": null,
       "value": 200,
       "stockItemId": 2,

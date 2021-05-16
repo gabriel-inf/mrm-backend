@@ -243,3 +243,44 @@ exports.getCustomersWithActiveContracts = async (req, res) => {
   customers = await helpers.executeSelect(query);
   res.send(customers);
 }
+
+exports.getRentedStockItems = async (req, res) => {
+  const query = `
+  select
+      stockItem.*,
+      rentContract."id" as "rentContract.id",
+      rentContract."startDate" as "rentContract.startDate",
+      rentContract."endDate" as "rentContract.endDate",
+      rentContract."approvalDate" as "rentContract.approvalDate",
+      rentContract."paymentDueDate" as "rentContract.paymentDueDate",
+      rentContract."paidAt" as "rentContract.paidAt",
+      rentContract."contractUrl" as "rentContract.contractUrl",
+      rentContract."durationMode" as "rentContract.durationMode",
+      rentContract."paymentType" as "rentContract.paymentType",
+      rentContract."paymentComment" as "rentContract.paymentComment",
+      rentContract."workingHours" as "rentContract.workingHours",
+      rentContract."deliveryMode" as "rentContract.deliveryMode",
+      rentContract."installments" as "rentContract.installments",
+      rentContract."additivesEndDate" as "rentContract.additivesEndDate",
+      rentContract."period" as "rentContract.period",
+      rentContract."deliveryCost" as "rentContract.deliveryCost",
+      rentContract."contractNumber" as "rentContract.contractNumber",
+      rentContract."invoiceNumber" as "rentContract.invoiceNumber",
+      rentContract."invoiceStatus" as "rentContract.invoiceStatus",
+      rentContract."invoiceUrl" as "rentContract.invoiceUrl",
+      rentContract."value" as "rentContract.value",
+      rentContract."status" as "rentContract.status",
+      rentContract."comment" as "rentContract.comment",
+      rentContract."customerId" as "rentContract.customerId"
+  from
+    "customers" customer inner join
+    "rentContracts" rentContract on (customer."id" = rentContract."customerId") inner join
+    "itemRentals" itemRental on (itemRental."rentContractId" = rentContract."id") inner join
+    "stockItems" stockItem on (itemRental."stockItemId" = stockItem."id")
+  where
+    customer."id" = :id
+  `
+
+  stockItems = await helpers.executeSelect(query, { id: req.params.id });
+  res.send(stockItems);
+}
