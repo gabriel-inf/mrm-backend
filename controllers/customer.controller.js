@@ -41,7 +41,7 @@ exports.findAll = (req, res) => {
   model.findAll({
     where: req.query,
     nested: true,
-    
+
     include: [
       {
         model: db.address
@@ -66,6 +66,18 @@ exports.findOne = (req, res) => {
     include: [
       {
         model: db.address
+      },
+      {
+        model: db.rentContract,
+        include: [
+          {
+            model: db.additive
+          },
+          {
+            model: db.itemRental,
+            include: db.stockItem
+          }
+        ]
       }
     ]
   }).then(customer => {

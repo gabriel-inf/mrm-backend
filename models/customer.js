@@ -16,6 +16,9 @@ module.exports = (sequelize, DataTypes) => {
           allowNull: true
         }
       });
+      this.hasMany(models.rentContract, {
+        onDelete: "cascade"
+      })
     }
   };
 
