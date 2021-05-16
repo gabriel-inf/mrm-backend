@@ -197,3 +197,55 @@ exports.getActive = async (req, res) => {
     handleApiError(res, err);
   });
 }
+
+exports.getRevenue = async (req, res) => {
+  rentContractsRevenueCurrentMonth = await db.rentContract.sum("value", {
+    where: {
+      paidAt: {
+        [Op.and]: [
+          { [Op.gte]: moment().startOf("month") },
+          { [Op.lte]: moment().endOf("month") }
+        ]
+      }
+    }
+  });
+
+  additivesRevenueCurrentMonth = await db.additive.sum("value", {
+    where: {
+      paidAt: {
+        [Op.and]: [
+          { [Op.gte]: moment().startOf("month") },
+          { [Op.lte]: moment().endOf("month") }
+        ]
+      }
+    }
+  });
+
+  rentContractsRevenueLastMonth = await db.rentContract.sum("value", {
+    where: {
+      paidAt: {
+        [Op.and]: [
+          { [Op.gte]: moment().subtract(1, 'month').startOf("month") },
+          { [Op.lte]: moment().subtract(1, 'month').endOf("month") }
+        ]
+      }
+    }
+  });
+
+  additivesRevenueLastMonth = await db.additive.sum("value", {
+    where: {
+      paidAt: {
+        [Op.and]: [
+          { [Op.gte]: moment().subtract(1, 'month').startOf("month") },
+          { [Op.lte]: moment().subtract(1, 'month').endOf("month") }
+        ]
+      }
+    }
+  });
+
+  result = {
+    "last_month_revenue": rentContractsRevenueLastMonth + additivesRevenueLastMonth,
+    "current_month_revenue": rentContractsRevenueCurrentMonth + additivesRevenueCurrentMonth,
+  }
+  res.send(result)
+}

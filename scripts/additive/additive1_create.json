@@ -3,7 +3,7 @@
   "endDate": "2021-06-10",
   "approvalDate": "2021-05-05",
   "paymentDueDate": "2021-06-20",
-  "paidAt": null,
+  "paidAt": "2021-05-02",
   "receiptUrl": "urlforthereceit.com",
   "contractUrl": "urlforthecontract.com",
   "value": 1200.20,
