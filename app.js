@@ -12,6 +12,7 @@ app.use(express.json());
 app.use(morgan('dev'));
 
 // import routes
+const projetoDeDBRoute = require("./routes/projetodebd.route");
 const addressRoute = require("./routes/address.route");
 const customerRoute = require("./routes/customer.route");
 const itemRoute = require("./routes/stockitem.route");
@@ -35,6 +36,7 @@ db.sequelize.sync().then(() => {
 function addRoutesToTheApp() {
   logger.info("Adding routes...");
 
+  app.use("/api/projetodedb", projetoDeDBRoute);
   app.use("/api/addresses", addressRoute);
   app.use("/api/customers", customerRoute);
   app.use("/api/stockItems", itemRoute);
