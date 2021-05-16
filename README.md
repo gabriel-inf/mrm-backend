@@ -77,6 +77,7 @@
 
 - `GET /api/rentcontracts` - Returns a list of all rent contracts in the DB in json format with information on their customer.
 - `GET /api/rentcontracts/active` - Returns a list of all rent contracts which are on going or have an on going additive in the DB in json format with information on their customer and additives.
+- `GET /api/rentcontracts/revenue/from/:start_date/to/:end_date` - Returns the total revenue for the period between the `:start_date` and `:end_date` in json format. **Obs:** Use the dates in format `YYYY-MM-DD`
 - `GET /api/rentcontracts/revenue` - Returns the total revenue for the current month and the previous month in json format.
 - `GET /api/rentcontracts/:id` - Returns the rent contract with id = `:id`, if one exists,  with information on its item rentals, stock items, additives and customer.
 - `POST /api/rentcontracts` - Creates a new rent contract. Requires a description in json of the rent contract in the body. The stock items in the item rentals in the json object will have their status changed to `RENTED`
@@ -119,6 +120,8 @@
 ### Projeto de BD
 
 - `GET /api/projetodedb/basicas/1/:id` - Returns a list of stock items that are currently in possesion of the customer with id = `:id` in json format. Each stock item also contains the information on the contract that binds it to this customer.
+- `GET /api/projetodedb/basicas/2` - Returns a list of all rent contracts which are on going or have an on going additive in the DB in json format with information on their customer and additives.
+- `GET /api/projetodedb/basicas/3/from/:start_date/to/:end_date` - Returns the total revenue for the period between the `:start_date` and `:end_date` in json format. **Obs:** Use the dates in format `YYYY-MM-DD`
 
 ## Database Diagram
 

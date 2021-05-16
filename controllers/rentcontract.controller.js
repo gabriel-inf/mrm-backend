@@ -262,3 +262,32 @@ exports.getRevenue = async (req, res) => {
   }
   res.send(result)
 }
+
+exports.getRevenueFromPeriod = async (req, res) => {
+  rentContractsRevenue = await db.rentContract.sum("value", {
+    where: {
+      paidAt: {
+        [Op.and]: [
+          { [Op.gte]: req.params.start_date },
+          { [Op.lte]: req.params.end_date }
+        ]
+      }
+    }
+  });
+
+  additivesRevenue = await db.additive.sum("value", {
+    where: {
+      paidAt: {
+        [Op.and]: [
+          { [Op.gte]: req.params.start_date },
+          { [Op.lte]: req.params.end_date }
+        ]
+      }
+    }
+  });
+
+  result = {
+    "revenue": rentContractsRevenue + additivesRevenue,
+  }
+  res.send(result)
+}
