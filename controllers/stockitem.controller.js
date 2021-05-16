@@ -146,3 +146,19 @@ exports.update = async (req, res) => {
     handleApiError(res, err);
   });
 };
+
+// get all stockItemEventes
+exports.getEvents = (req, res) => {
+  db.stockItemEvent.findAll({
+    where: {
+      stockItemId: req.params.id
+    }
+  })
+    .then(stockItemEvents => {
+      addXTotalCount(res, stockItemEvents.length);
+      res.send(stockItemEvents);
+    })
+    .catch((err) => {
+      handleApiError(res, err);
+    });
+};

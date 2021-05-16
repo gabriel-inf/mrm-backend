@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const {create, findAll, findOne, deleteAll, deleteOne,
-    update} = require("../controllers/stockitem.controller");
+       update, getEvents} = require("../controllers/stockitem.controller");
 
 // CRUD
 router.get("/", findAll);
@@ -10,5 +10,6 @@ router.post("/", create);
 router.delete("/:id", deleteOne);
 router.delete("/", deleteAll);
 router.put("/:id", update);
+router.get("/:id/events", getEvents);
 
 module.exports = router;
