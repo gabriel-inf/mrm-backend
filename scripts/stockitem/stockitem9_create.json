@@ -8,7 +8,7 @@
   "numberOfUses": 95,
   "lastMaintenance": "2029-09-09",
   "acquisitionDate": "2020-07-09",
-  "needsMaintenance": false,
+  "needsMaintenance": true,
   "imageURL": "imageURL",
   "rentValue": 900.50,
   "replacementCost": 9000.50,

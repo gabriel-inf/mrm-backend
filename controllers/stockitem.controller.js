@@ -256,3 +256,21 @@ exports.getRented = (req, res) => {
       handleApiError(res, err);
     });
 };
+
+// get by code
+exports.getNeedsMaintenanceList = (req, res) => {
+  db.stockItem.findAll({
+    where: {
+      needsMaintenance: true
+    },
+    include: [db.supplier, db.stockItemEvent]
+  })
+    .then(items => {
+      res.headers = addXTotalCount(res, items.length);
+      console.log(JSON.stringify(res.headers));
+      res.send(items);
+    })
+    .catch((err) => {
+      handleApiError(res, err);
+    });
+};
