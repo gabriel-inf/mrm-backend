@@ -30,7 +30,7 @@ exports.create = async (req, res) => {
   }).then(async (createdItem) => {
     var rentContract = await db.rentContract.findOne({where: {id: createdItem.rentContractId}});
     await rentContract.update({
-      endDate: createdItem.endDate
+      additivesEndDate: createdItem.endDate
     })
     res.status(StatusCodes.CREATED);
     res.send(createdItem);
