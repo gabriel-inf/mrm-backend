@@ -77,8 +77,8 @@
 - `GET /api/rentcontracts/active` - Returns a list of all rent contracts which are on going or have an on going additive in the DB in json format with information on their customer and additives.
 - `GET /api/rentcontracts/revenue` - Returns the total revenue for the current month and the previous month in json format.
 - `GET /api/rentcontracts/:id` - Returns the rent contract with id = `:id`, if one exists,  with information on its item rentals, stock items, additives and customer.
-- `POST /api/rentcontracts` - Creates a new rent contract. Requires a description in json of the rent contract in the body
-- `PUT /api/rentcontracts/:id` - Updates the fields of the rent contract with the id = `:id` in the DB. Requires a description in json of the rent contract, with the fields updated, in the body.
+- `POST /api/rentcontracts` - Creates a new rent contract. Requires a description in json of the rent contract in the body. The stock items in the item rentals in the json object will have their status changed to `RENTED`
+- `PUT /api/rentcontracts/:id` - Updates the fields of the rent contract with the id = `:id` in the DB. Requires a description in json of the rent contract, with the fields updated, in the body. The stock items added through this operation will **NOT** have their status updated.
 - `DELETE /api/rentcontracts/` - Deletes all the rent contracts from the DB. Returns no response
 - `DELETE /api/rentcontracts/:id` - Deletes the rent contract with the id = `:id` from the DB. Returns no response
 

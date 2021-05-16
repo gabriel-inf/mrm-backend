@@ -54,6 +54,19 @@ exports.create = async (req, res) => {
   }, {
     include: [db.itemRental]
   }).then(createdItem => {
+    for(var i = 0; i < itemRentalsLength; i++) {
+      db.stockItem.update({
+        status: "RENTED"
+      }, {
+        where: {
+          id: itemRentals[i].stockItemId
+        }
+      });
+      db.stockItemEvent.create({
+        stockItemId: itemRentals[i].stockItemId,
+        status: "RENTED"
+      })
+    };
     res.status(StatusCodes.CREATED);
     res.send(createdItem);
   }).catch((err) => {
