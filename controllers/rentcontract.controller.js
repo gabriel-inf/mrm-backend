@@ -1,4 +1,6 @@
 const { StatusCodes, getReasonPhrase } = require("http-status-codes");
+const {Op} = require("sequelize");
+const moment = require("moment");
 const db = require("../models");
 const helpers = require("./utils/helpers")
 const handleApiError = require("./utils/apiErrorHandler");
@@ -173,3 +175,25 @@ exports.update = async (req, res) => {
     handleApiError(res, err);
   });
 };
+
+exports.getActive = async (req, res) => {
+  db.rentContract.findAll({
+    where: {
+      startDate: {
+        [Op.lte]: moment(),
+      },
+      [Op.or]: [
+        { endDate: { [Op.gte]: moment() } },
+        { additivesEndDate: { [Op.gte]: moment() } }
+      ],
+      status: {
+        [Op.or]: ["APPROVED", "ON GOING"]
+      }
+    },
+    include: [db.customer, db.additive]
+  }).then(results => {
+      res.send(results);
+  }).catch((err) => {
+    handleApiError(res, err);
+  });
+}

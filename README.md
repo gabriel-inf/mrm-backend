@@ -73,6 +73,7 @@
 ### Rent Contracts
 
 - `GET /api/rentcontracts` - Returns a list of all rent contracts in the DB in json format with information on their customer.
+- `GET /api/rentcontracts/active` - Returns a list of all rent contracts which are on going or have an on going additive in the DB in json format with information on their customer and additives.
 - `GET /api/rentcontracts/:id` - Returns the rent contract with id = `:id`, if one exists,  with information on its item rentals, stock items, additives and customer.
 - `POST /api/rentcontracts` - Creates a new rent contract. Requires a description in json of the rent contract in the body
 - `PUT /api/rentcontracts/:id` - Updates the fields of the rent contract with the id = `:id` in the DB. Requires a description in json of the rent contract, with the fields updated, in the body.
