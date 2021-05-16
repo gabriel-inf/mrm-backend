@@ -55,6 +55,7 @@
 ### Customers
 
 - `GET /api/customers` - Returns a list of all customers in the DB in json format with the address information.
+- `GET /api/customers/with_active_contracts` - Returns a list of customers with active contracts with information about the active contract and, if the contract is active because of an additive, information on the additive. If the contract is not active because of an additive, the additive fields will all be `null`.
 - `GET /api/customers/:id` - Returns the customer with id = `:id`, if one exists,  with the information on address, rent contracts, additives, item rentals and stock items.
 - `POST /api/customers` - Creates a new customer. Requires a description in json of the customer in the body
 - `PUT /api/customers/:id` - Updates the fields of the customer with the id = `:id` in the DB. Requires a description in json of the customer, with the fields updated, in the body.

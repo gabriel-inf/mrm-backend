@@ -13,7 +13,8 @@ async function executeSelect(query, replacements){
           query,
           {
               replacements: replacements,
-              type: QueryTypes.SELECT
+              type: QueryTypes.SELECT,
+              nest: true
           }
       );
   } catch (err) {
@@ -63,3 +64,5 @@ exports.get_contract_number_from_rent_contract = async (rentContractId) => {
   console.log(contractNumber);
   return contractNumber[0].contractNumber;
 }
+
+exports.executeSelect = executeSelect;

@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const {create, findAll, findOne, deleteAll, deleteOne, update, findOneAddress} = require("../controllers/customer.controller");
+const {create, findAll, findOne, deleteAll, deleteOne, update, findOneAddress, getCustomersWithActiveContracts} = require("../controllers/customer.controller");
 
 router.get("/", findAll);
+router.get("/with_active_contracts", getCustomersWithActiveContracts);
 router.get("/:id", findOne);
 router.get("/:id/address", findOneAddress);
 router.post("/", create);
