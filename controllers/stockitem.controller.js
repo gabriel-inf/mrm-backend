@@ -148,7 +148,7 @@ exports.update = async (req, res) => {
   });
 };
 
-// get all stockItemEventes
+// get all stockItemEvents
 exports.getEvents = (req, res) => {
   db.stockItemEvent.findAll({
     where: {
@@ -158,6 +158,23 @@ exports.getEvents = (req, res) => {
     .then(stockItemEvents => {
       addXTotalCount(res, stockItemEvents.length);
       res.send(stockItemEvents);
+    })
+    .catch((err) => {
+      handleApiError(res, err);
+    });
+};
+
+// get by code
+exports.getByCode = (req, res) => {
+  db.stockItem.findAll({
+    where: {
+      code: req.params.code
+    },
+    include: [db.supplier, db.stockItemEvent]
+  })
+    .then(stockItem => {
+      addXTotalCount(res, stockItem.length);
+      res.send(stockItem);
     })
     .catch((err) => {
       handleApiError(res, err);

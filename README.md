@@ -84,6 +84,7 @@
 - `GET /api/stockitems` - Returns a list of all stock items in the DB in json format
 - `GET /api/stockitems/:id` - Returns the stock item with id = `:id`, if one exists, including all of its stock item events and supplier information.
 - `GET /api/stockitems/:id/events` - Returns a list of all stock item events for the stock item with id = `:id` in the DB in json format
+- `GET /api/stockitems/code/:code` - Returns the stock item with code = `:code`, if one exists, including all of its stock item events and supplier information.
 - `POST /api/stockitems` - Creates a new stock item. Requires a description in json of the stock item in the body
 - `PUT /api/stockitems/:id` - Updates the fields of the stock item with the id = `:id` in the DB. Requires a description in json of the stock item, with the fields updated, in the body.
 - `DELETE /api/stockitems/` - Deletes all the stock items from the DB. Returns no response
