@@ -115,6 +115,7 @@ exports.update = async (req, res) => {
     status: getModelValueIfUndefined(req.body.status, stockItem.status),
     numberOfUses: getModelValueIfUndefined(req.body.numberOfUses, stockItem.numberOfUses),
     lastMaintenance: getModelValueIfUndefined(req.body.lastMaintenance, stockItem.lastMaintenance),
+    needsMaintenance: getModelValueIfUndefined(req.body.needsMaintenance, stockItem.needsMaintenance),
     acquisitionDate: getModelValueIfUndefined(req.body.acquisitionDate, stockItem.acquisitionDate),
     imageURL: getModelValueIfUndefined(req.body.imageURL, stockItem.imageURL),
     rentValue: getModelValueIfUndefined(req.body.rentValue, stockItem.rentValue),
