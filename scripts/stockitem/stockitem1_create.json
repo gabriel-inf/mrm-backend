@@ -4,7 +4,7 @@
   "power": "Stock Item 1 Power",
   "brand": "Stock Item 1 Brand",
   "model": "Stock Item 1 Model",
-  "status": "INVENTORY",
+  "status": "RENTED",
   "numberOfUses": 15,
   "lastMaintenance": "2021-04-01",
   "acquisitionDate": "2020-07-01",

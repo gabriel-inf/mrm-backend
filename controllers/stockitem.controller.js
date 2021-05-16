@@ -180,3 +180,19 @@ exports.getByCode = (req, res) => {
       handleApiError(res, err);
     });
 };
+
+// get rented machines
+exports.getRented = (req, res) => {
+  db.stockItem.findAll({
+    where: {
+      "status": 'RENTED'
+    }
+  })
+    .then(stockItem => {
+      addXTotalCount(res, stockItem.length);
+      res.send(stockItem);
+    })
+    .catch((err) => {
+      handleApiError(res, err);
+    });
+};
