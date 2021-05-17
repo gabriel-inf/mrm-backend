@@ -56,6 +56,7 @@
 ### Customers
 
 - `GET /api/customers` - Returns a list of all customers in the DB in json format with the address information.
+- `GET /api/customers/pastdue/amounts` - Returns list of the ids of the customers that have past due debts and the value owed ordered by amount.
 - `GET /api/customers/with_active_contracts` - Returns a list of customers with active contracts in deacreasing order of start date with information about the active contract and, if the contract is active because of an additive, information on the additive. If the contract is not active because of an additive, the additive fields will all be `null`.
 - `GET /api/customers/:id/rentedItems` - Returns a list of stock items that are currently in possesion of the customer with id = `:id` in json format. Each stock item also contains the information on the contract that binds it to this customer.
 - `GET /api/customers/:id` - Returns the customer with id = `:id`, if one exists,  with the information on address, rent contracts, additives, item rentals and stock items.
