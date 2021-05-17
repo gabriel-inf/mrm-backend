@@ -56,7 +56,7 @@
 ### Customers
 
 - `GET /api/customers` - Returns a list of all customers in the DB in json format with the address information.
-- `GET /api/customers/with_active_contracts` - Returns a list of customers with active contracts with information about the active contract and, if the contract is active because of an additive, information on the additive. If the contract is not active because of an additive, the additive fields will all be `null`.
+- `GET /api/customers/with_active_contracts` - Returns a list of customers with active contracts in deacreasing order of start date with information about the active contract and, if the contract is active because of an additive, information on the additive. If the contract is not active because of an additive, the additive fields will all be `null`.
 - `GET /api/customers/:id/rentedItems` - Returns a list of stock items that are currently in possesion of the customer with id = `:id` in json format. Each stock item also contains the information on the contract that binds it to this customer.
 - `GET /api/customers/:id` - Returns the customer with id = `:id`, if one exists,  with the information on address, rent contracts, additives, item rentals and stock items.
 - `POST /api/customers` - Creates a new customer. Requires a description in json of the customer in the body
@@ -126,6 +126,7 @@
 - `GET /api/projetodedb/basicas/3/from/:start_date/to/:end_date` - Returns the total revenue for the period between the `:start_date` and `:end_date` in json format. **Obs:** Use the dates in format `YYYY-MM-DD`
 - `GET /api/projetodedb/basicas/4` - Returns a list of all stock items in the DB that are set as needing maintenance in json format with item events and supplier information
 - `GET /api/projetodedb/basicas/5` - Returns a list of all stock items in the DB that are set as being in maintenance in json format with item events and supplier information
+- `GET /api/projetodedb/basicas/8` - Returns a list of customers with active contracts in deacreasing order of start date with information about the active contract and, if the contract is active because of an additive, information on the additive. If the contract is not active because of an additive, the additive fields will all be `null`.
 
 ## Database Diagram
 
