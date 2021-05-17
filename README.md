@@ -128,6 +128,8 @@
 - `GET /api/projetodedb/basicas/3/from/:start_date/to/:end_date` - Returns the total revenue for the period between the `:start_date` and `:end_date` in json format. **Obs:** Use the dates in format `YYYY-MM-DD`
 - `GET /api/projetodedb/basicas/4` - Returns a list of all stock items in the DB that are set as needing maintenance in json format with item events and supplier information
 - `GET /api/projetodedb/basicas/5` - Returns a list of all stock items in the DB that are set as being in maintenance in json format with item events and supplier information
+- `GET /api/projetodedb/basicas/6` - Returns list of the ids of the customers that have past due debts and the value owed ordered by amount.
+- `GET /api/projetodedb/basicas/7` - Returns list of the ids of the customers that have past due debts and the sum of the days past due in each contract ordered by number of days.
 - `GET /api/projetodedb/basicas/8` - Returns a list of customers with active contracts in deacreasing order of start date with information about the active contract and, if the contract is active because of an additive, information on the additive. If the contract is not active because of an additive, the additive fields will all be `null`.
 
 ## Database Diagram
