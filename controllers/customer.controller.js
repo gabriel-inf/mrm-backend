@@ -7,7 +7,7 @@ const { hasInvalidQuery } = require("./utils/queryValidator");
 const { isInvalidId, isIdNotPresent } = require("./utils/genericBodyValidator");
 const { addXTotalCount } = require("./utils/headerHelper");
 const helpers = require("./utils/helpers")
-const {getClientsAndDebts} = require("../dao/customerDAO")
+const {getClientsAndDebts, getClientsAndTotalDaysInDebt} = require("../dao/customerDAO")
 const model = db.customer;
 
 // create new customer
@@ -291,5 +291,10 @@ exports.getRentedStockItems = async (req, res) => {
 
 exports.getPastDueValue = async (req, res) => {
   results = await getClientsAndDebts();
+  res.send(results)
+}
+
+exports.getPastDueDays = async (req, res) => {
+  results = await getClientsAndTotalDaysInDebt();
   res.send(results)
 }
